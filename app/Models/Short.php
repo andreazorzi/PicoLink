@@ -43,6 +43,20 @@ class Short extends Model
         ];
     }
     
+    public function urls(){
+        return $this->hasMany(Url::class);
+    }
+    
+    public function getUrl($language = null){
+        $url = $this->urls()->where("language", $language)->first();
+        
+        if(is_null($url)){
+            $url = $this->urls()->where("language", null)->first();
+        }
+        
+        return $url->url;
+    }
+    
     public static function createFromRequest(Request $request):View{
         return (new self)->updateFromRequest($request, false);
     }

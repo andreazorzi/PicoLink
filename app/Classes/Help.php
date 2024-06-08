@@ -45,4 +45,10 @@ class Help
         
         return true;
     }
+    
+    public static function preferred_language(){
+        $browser_language = request()->getPreferredLanguage();
+        
+        return explode("_", $browser_language)[0];
+    }
 }

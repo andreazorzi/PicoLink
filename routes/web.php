@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\ShortController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,9 @@ Route::prefix('backoffice')->group(function () {
         // Route::view('users', 'backoffice.users', headers: ["menu" => true])->name('backoffice.users');
     });
 });
+
+// Shorts
+Route::get('{short}', [ShortController::class, 'short']);
 
 Route::middleware('dev-env')->group(function () {
     Route::get('test', function(){
