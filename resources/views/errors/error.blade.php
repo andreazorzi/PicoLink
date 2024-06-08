@@ -39,8 +39,6 @@
 				</div>
 			</div>
 		</div>
-        
-        <x-footer/>
 		
         <style>
 			.centered {

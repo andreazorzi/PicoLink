@@ -29,9 +29,6 @@
                 </div>
             </div>
         </div>
-        
-        {{-- Footer --}}
-        <x-backoffice.footer />
                 
         {{-- Menu --}}
         <x-backoffice.menu />
