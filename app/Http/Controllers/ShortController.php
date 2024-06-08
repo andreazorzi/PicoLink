@@ -16,6 +16,18 @@ class ShortController extends Controller
             abort(404);
         }
         
-        return redirect($short->getUrl(Help::preferred_language()));
+        $browser_language = Help::preferred_language();
+        $url = $short->getUrl($browser_language);
+        
+        if(config('app.env') == 'local'){
+            return response()->json([
+                'short' => $code,
+                'browser_language' => $browser_language,
+                'url' => $url,
+                'urls' => $short->getUrls()
+            ]);
+        }
+        
+        return redirect($url);
     }
 }

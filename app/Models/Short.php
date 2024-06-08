@@ -57,6 +57,16 @@ class Short extends Model
         return $url->url;
     }
     
+    public function getUrls(){
+        $urls = [];
+        
+        foreach($this->urls()->orderBy("language")->get() as $url){
+            $urls[$url->language ?? "_default"] = $url->url;
+        }
+        
+        return $urls;
+    }
+    
     public static function createFromRequest(Request $request):View{
         return (new self)->updateFromRequest($request, false);
     }
