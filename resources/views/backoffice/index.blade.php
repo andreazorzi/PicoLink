@@ -13,9 +13,7 @@
         <div id="container">
             <div class="row mb-3">
                 {{-- Title --}}
-                <x-backoffice.title title="Example Title">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                </x-backoffice.title>
+                <x-backoffice.title :title="config('app.name')" />
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6">
