@@ -2,7 +2,7 @@ version: '3'
 services:
     server:
         container_name: "${APP_SLUG}-server"
-        image: ghcr.io/andreazorzi/${APP_SLUG}:latest
+        image: ghcr.io/andreazorzi/PicoLink:latest
         restart: unless-stopped
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
