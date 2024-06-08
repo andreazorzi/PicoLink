@@ -1,4 +1,4 @@
-$header-height: 50px;
+$header-height: 73px;
 
 // Site Theme
 body{
@@ -6,15 +6,12 @@ body{
 	font-family: "Poppins", sans-serif !important;
 	
 	header{
-		background-color: #f8f9fa;
+		height: $header-height;
+		background-color: #c1ebff;
 		border-bottom: 1px solid #d3d3d3;
 		
 		#menu-button{
 			cursor: pointer;
-		}
-		
-		.logo{
-			height: $header-height;
 		}
 		
 		h2{
@@ -28,6 +25,8 @@ body{
 			.avatar{
 				height: 40px;
 				border-radius: 50em;
+				// border: 1px solid #a3a3a3;
+				box-shadow: 0 0 3px 0px #a3a3a3;;
 			}
 			
 			#user-actions{
