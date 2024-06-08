@@ -19,10 +19,12 @@ use App\Http\Controllers\RouteController;
 */
 
 // Backoffice
-Route::get('/', [RouteController::class, 'index', [User::current()]])->name('backoffice.index');
-
-Route::middleware(['role:'.config("auth.authentik.administrators")])->group(function () {
-    // Route::view('users', 'backoffice.users', headers: ["menu" => true])->name('backoffice.users');
+Route::prefix('backoffice')->group(function () {
+    Route::get('/', [RouteController::class, 'index', [User::current()]])->name('backoffice.index');
+    
+    Route::middleware(['role:'.config("auth.authentik.administrators")])->group(function () {
+        // Route::view('users', 'backoffice.users', headers: ["menu" => true])->name('backoffice.users');
+    });
 });
 
 Route::middleware('dev-env')->group(function () {
