@@ -210,7 +210,7 @@ return [
         'time'                     => 'ora',
         'title'                    => 'titolo',
         'updated_at'               => 'aggiornato a',
-        'username'                 => 'nome utente',
+        'username'                 => 'username',
         'year'                     => 'anno',
         
         // Custom attributes

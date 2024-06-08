@@ -33,7 +33,7 @@ class WebAuthController extends Controller
 		}
 
 		// Else return error
-		return back()->withErrors(['login-form' => 'Utente o password non corretti.'])->onlyInput('username');
+		return back()->withErrors(['login-form' => __("auth.user_or_password ")])->onlyInput('username');
 	}
 
 	// Logout

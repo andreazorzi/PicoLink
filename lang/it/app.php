@@ -17,6 +17,14 @@ return [
         ],
     ],
     'pages' => [
+        'login' => [
+            'meta_title' => 'Login',
+            'meta_description' => 'Login',
+            
+            'title' => 'Login',
+            'login_button' => 'Accedi',
+            'error' => 'Errore',
+        ],
         'index' => [
             'meta_title' => 'Home',
             'meta_description' => 'Questa è la homepage',
