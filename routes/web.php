@@ -27,6 +27,6 @@ Route::middleware(['role:'.config("auth.authentik.administrators")])->group(func
 
 Route::middleware('dev-env')->group(function () {
     Route::get('test', function(){
-        echo "test";
+        echo request()->getPreferredLanguage();
     })->name('test');
 });
