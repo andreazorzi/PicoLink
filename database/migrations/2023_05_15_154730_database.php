@@ -36,6 +36,24 @@ return new class extends Migration
             $table->primary('token');
             $table->foreign('user')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
+        
+        // Shorts
+        Schema::create('shorts', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->string('code', 50)->unique();
+            $table->string('description');
+            $table->dateTime('created_at')->useCurrent();
+        });
+        
+        // Urls
+        Schema::create('urls', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->integer('short_id');
+            $table->string('url');
+            $table->char('language', 2)->nullable();
+            
+            $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**
