@@ -2,7 +2,7 @@ $header-height: 50px;
 
 // Site Theme
 body{
-	background-color: #c1ebff;
+	background-color: #e5e5e5;
 	font-family: "Poppins", sans-serif !important;
 	
 	header{
@@ -181,6 +181,8 @@ body{
 }
 
 .login-container{
+	background-color: #c1ebff;
+	
 	.card{
 		.btn-authentik{
 			background-color: #f3492f;
