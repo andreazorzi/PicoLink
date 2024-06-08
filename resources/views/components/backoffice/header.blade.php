@@ -10,7 +10,7 @@
 	</div>
 	<div class="col py-2 px-1 align-self-center h-100">
 		<a href="{{route("backoffice.index")}}" class="text-body fw-bold text-decoration-none">
-			<img src="{{asset("images/logo-short.png")}}" class="logo me-2 h-100">
+			<img src="{{asset("images/logo-short.png")}}" class="logo me-2 h-100" title="{{config("app.name")}}">
 		</a>
 	</div>
 	<div id="user-box" class="col-auto p-3 align-self-center position-relative">
