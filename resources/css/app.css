@@ -1,0 +1,24 @@
+/* Bootstrap */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Poppins */
+@import "@fontsource/poppins";
+
+/* Toastify */
+@import "toastify-js/src/toastify.css";
+
+/* SelectSearch */
+@import "@andreazorzi/selectsearch/select-search.css";
+
+/* Selectize */
+@import "@selectize/selectize/dist/css/selectize.css";
+
+/* Autocompleter */
+/* @import "autocompleter/autocomplete.css"; */
+
+/* Airdatepicker */
+/* @import "air-datepicker/dist/air-datepicker.css"; */
+
+
+/* Fontawesome needs to be imported last in order to avoid issues with other plugins */
+@import "@fortawesome/fontawesome-free/css/all.css";

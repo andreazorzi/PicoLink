@@ -1,0 +1,21 @@
+node_modules
+vendor
+public/build
+public/hot
+
+# Environment variables
+.env
+.env.example
+
+# Dockerfiles
+.dockerignore
+docker-compose.production.yml
+docker-compose.test.yml
+docker-compose.yml
+Dockerfile
+Dockerfile.test
+Dockerfile.production
+
+supervisord.dev.conf
+.onedev-buildspec.yml
+.editorconfig

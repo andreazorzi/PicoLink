@@ -1,0 +1,1 @@
+@include("errors.error", ["error_code" => $exception->getStatusCode()])
