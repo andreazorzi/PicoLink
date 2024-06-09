@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Url;
 use App\Models\Short;
+use App\Models\Visit;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,9 +24,13 @@ class DatabaseSeeder extends Seeder
             $shorts = Short::factory(50)->create();
             
             foreach($shorts as $short){
+                $urls = [];
+                
                 foreach([null, 'en'] as $language){
-                    $url = Url::factory(1)->recycle($short)->create(is_null($language) ? ['language' => $language] : []);
+                    $urls[] = Url::factory(1)->recycle($short)->create(is_null($language) ? ['language' => $language] : []);
                 }
+                
+                $visits = Visit::factory(rand(5, 20))->recycle($short)->recycle(fake()->randomElement($urls))->create();
             }
         }
     }

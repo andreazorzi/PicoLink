@@ -54,6 +54,21 @@ return new class extends Migration
             
             $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->onDelete('cascade');
         });
+        
+        // Visits
+        Schema::create('visits', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->integer('short_id')->nullable();
+            $table->integer('url_id')->nullable();
+            $table->string('language');
+            $table->string('device', 50);
+            $table->string('country', 2)->nullable();
+            $table->string('referer');
+            $table->dateTime('created_at')->useCurrent();
+            
+            $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->nullOnDelete();
+            $table->foreign('url_id')->references('id')->on('urls')->onUpdate('cascade')->nullOnDelete();
+        });
     }
 
     /**
