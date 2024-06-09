@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 return [
     'backoffice' => [
+        'index' => [
+            'link_copied' => 'Link copiato',
+        ],
         'users' => [
             'title' => 'Gestione Utenti',
             'color' => '#10B9C4',

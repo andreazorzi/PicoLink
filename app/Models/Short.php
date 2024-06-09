@@ -39,6 +39,11 @@ class Short extends Model
     
     public function getTableActions($model_name,$model_key, $key):array{
         return [
+            [
+                "custom-attributes" => 'onclick="navigator.clipboard.writeText(`'.(!empty($key) ? $this->getLink() : "").'`); Toastify({text: `'.__("app.backoffice.index.link_copied").'!`, duration: `1400`, className: `success`, gravity: `bottom`, position: `center`, close: true}).showToast();"',
+                "icon" => '<i class="fa-solid fa-clipboard text-primary"></i>'
+            ],
+            
             // Default action
             [
                 "custom-attributes" => 'data-id="'.$key.'" hx-post="'.route($model_name.".details", [$this]).'"',
@@ -73,6 +78,10 @@ class Short extends Model
         }
         
         return $urls;
+    }
+    
+    public function getLink(){
+        return route("short", $this->code);
     }
     
     public function getCreatedAtText(){
