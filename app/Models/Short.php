@@ -27,6 +27,9 @@ class Short extends Model
             "description" => [
                 "filter" => true,
             ],
+            "visits" => [
+                "custom-value" => "getVisits",
+            ],
             "created_at" => [
                 "sort" => "desc",
                 "custom-value" => "getCreatedAtText",
@@ -74,6 +77,10 @@ class Short extends Model
     
     public function getCreatedAtText(){
         return date("d/m/Y H:i", strtotime($this->created_at));
+    }
+    
+    public function getVisits(){
+        return $this->visits()->count();
     }
     
     public static function createFromRequest(Request $request):View{

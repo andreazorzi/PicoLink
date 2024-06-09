@@ -216,5 +216,6 @@ return [
         // Custom attributes
         'status' => 'status',
         'code' => 'codice',
+        'visits' => 'visite',
     ],
 ];
