@@ -19,6 +19,10 @@ class Url extends Model
 
     protected $guarded  = ['no_key']; // set guarded columns, set to no_key to avoid problems
     
+    public function visits(){
+        return $this->hasMany(Visit::class);
+    }
+    
     public static function validate(Request $request, bool $update):array{
         $validator = Validator::make($request->all(), [
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],

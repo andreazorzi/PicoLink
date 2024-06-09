@@ -25,8 +25,21 @@ Route::prefix('backoffice')->group(function () {
     Route::get('/', [RouteController::class, 'index', [User::current()]])->name('backoffice.index');
     
     Route::middleware(['role:'.config("auth.authentik.administrators")])->group(function () {
-        // Route::view('users', 'backoffice.users', headers: ["menu" => true])->name('backoffice.users');
+        Route::get('short/{short:code}', [ShortController::class, 'short_preview'])->name('backoffice.short');
     });
+});
+
+Route::middleware('dev-env')->group(function () {
+    Route::get('test', function(){
+        echo '
+            <img src="'.asset("images/lang/default.svg").'" title="Default"> Default<br>
+        ';
+        foreach(__("languages") as $key => $value){
+            echo '
+                <img src="'.asset("images/lang/".$key.".svg").'" title="'.$value.'"> '.$value.'<br>
+            ';
+        }
+    })->name('test');
 });
 
 // Shorts
@@ -34,10 +47,4 @@ Route::prefix('{short}')->group(function () {
     Route::get('/', [ShortController::class, 'short'])->name("short");
     Route::get('/info', [ShortController::class, 'short_info']);
     Route::get('/test', [ShortController::class, 'short_test']);
-});
-
-Route::middleware('dev-env')->group(function () {
-    Route::get('test', function(){
-        return response()->json(Help::getRequestData());
-    })->name('test');
 });

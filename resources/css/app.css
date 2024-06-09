@@ -13,6 +13,9 @@
 /* Selectize */
 @import "@selectize/selectize/dist/css/selectize.css";
 
+/* Flag Icons */
+@import "flag-icons/css/flag-icons.min.css";
+
 /* Autocompleter */
 /* @import "autocompleter/autocomplete.css"; */
 

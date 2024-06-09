@@ -46,7 +46,7 @@ class Short extends Model
             
             // Default action
             [
-                "custom-attributes" => 'data-id="'.$key.'" hx-post="'.route($model_name.".details", [$this]).'"',
+                "url" => (!empty($key) ? route("backoffice.short", ["short" => $this->code ?? ""]) : ""),
                 "icon" => '<i class="table-search-preview fa-solid fa-pen"></i>'
             ]
         ];

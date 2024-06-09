@@ -159,7 +159,7 @@
 								<td class="text-end">
 									@foreach ($model_obj->getTableActions($model_name, $model_key, $model_obj->{$model_key}) as $action)
 										@isset($action["url"])
-											<a href="{{$action["url"]}}" class="d-inline-block ms-3 text-decoration-none text-black" title="{{$action["title"]}}" {!!$action["custom-attributes"]!!}>
+											<a href="{{$action["url"]}}" class="d-inline-block ms-3 text-decoration-none text-black" title="{{$action["title"] ?? ''}}" {!!$action["custom-attributes"] ?? ''!!}>
 												{!!$action["icon"]!!}
 											</a>
 										@else
