@@ -31,6 +31,7 @@ Route::prefix('backoffice')->group(function () {
 // Shorts
 Route::prefix('{short}')->group(function () {
     // Route::get('/', [ShortController::class, 'short']);
+    Route::get('/info', [ShortController::class, 'short_info']);
     Route::get('/test', [ShortController::class, 'short_test']);
 });
 

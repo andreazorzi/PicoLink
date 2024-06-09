@@ -38,4 +38,14 @@ class ShortController extends Controller
     public function short_test(Request $request, $code){
         return $this->short($request, $code, true);
     }
+    
+    public function short_info(Request $request, $code){
+        $short = Short::where('code', $code)->first();
+        
+        if(is_null($short)){
+            abort(404);
+        }
+        
+        // redirect to short page
+    }
 }
