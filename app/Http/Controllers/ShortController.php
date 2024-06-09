@@ -26,7 +26,7 @@ class ShortController extends Controller
                 'url_id' => $url->id,
                 'language' => $request_data['language'],
                 'device' => $request_data['device_type'],
-                'referer' => $request_data['device_type'],
+                'referer' => $request_data['referer'],
             ]);
         }
         
