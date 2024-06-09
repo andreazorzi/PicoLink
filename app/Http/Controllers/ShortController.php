@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Help;
+use App\Jobs\VisitCountry;
 use App\Models\Short;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -22,12 +23,14 @@ class ShortController extends Controller
         if(!$test){
             $request_data = Help::getRequestData();
             
-            $short->visits()->create([
+            $visit = $short->visits()->create([
                 'url_id' => $url->id,
                 'language' => $request_data['language'],
                 'device' => $request_data['device_type'],
                 'referer' => $request_data['referer'],
             ]);
+            
+            VisitCountry::dispatch($visit, $request_data['ip']);
         }
         
         if(config('app.env') == 'local'){
