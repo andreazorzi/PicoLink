@@ -15,17 +15,10 @@
                 {{-- Title --}}
                 <x-backoffice.title :title="config('app.name')" />
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div id="bookmarks" class="row justify-content-center">
-                        @foreach (Route::getRoutes() as $route)
-                            @if(strpos($route->getName(), "backoffice.") !== false && !empty($route->defaults["headers"]["menu"] ?? []) && User::current()->canAccessRoute($route) && ($route->defaults["headers"]["menu"] ?? false))
-                                <x-backoffice.bookmark :title="__('app.'.$route->getName().'.title')" :route="$route->getName()" :color="__('app.'.$route->getName().'.color')" :icon="__('app.'.$route->getName().'.icon')"/>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+            
+            {{-- Search Table --}}
+            {{-- <x-search-table-filters.users /> --}}
+            <x-search-table :model="new App\Models\Short()"></x-search-table>
         </div>
                 
         {{-- Menu --}}

@@ -28,7 +28,8 @@ class Short extends Model
                 "filter" => true,
             ],
             "created_at" => [
-                "sort" => "asc",
+                "sort" => "desc",
+                "custom-value" => "getCreatedAtText",
             ],
         ];
     }
@@ -65,6 +66,10 @@ class Short extends Model
         }
         
         return $urls;
+    }
+    
+    public function getCreatedAtText(){
+        return date("d/m/Y H:i", strtotime($this->created_at));
     }
     
     public static function createFromRequest(Request $request):View{

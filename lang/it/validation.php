@@ -151,7 +151,7 @@ return [
         'city'                     => 'città',
         'content'                  => 'contenuto',
         'country'                  => 'paese',
-        'created_at'               => 'creato a',
+        'created_at'               => 'creato il',
         'creator'                  => 'Creatore',
         'current_password'         => 'password attuale',
         'date'                     => 'data',
@@ -215,6 +215,6 @@ return [
         
         // Custom attributes
         'status' => 'status',
-        'author' => 'autore',
+        'code' => 'codice',
     ],
 ];
