@@ -11,10 +11,8 @@
         <x-backoffice.header />
 
         <div id="container">
-            <div class="row mb-3">
-                {{-- Title --}}
-                <x-backoffice.title :title="config('app.name')" />
-            </div>
+            {{-- Title --}}
+            <x-backoffice.title :title="config('app.name')" />
             
             {{-- Search Table --}}
             {{-- <x-search-table-filters.users /> --}}
