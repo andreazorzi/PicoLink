@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Classes\Help;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -30,13 +31,13 @@ Route::prefix('backoffice')->group(function () {
 
 // Shorts
 Route::prefix('{short}')->group(function () {
-    // Route::get('/', [ShortController::class, 'short']);
+    Route::get('/', [ShortController::class, 'short']);
     Route::get('/info', [ShortController::class, 'short_info']);
     Route::get('/test', [ShortController::class, 'short_test']);
 });
 
 Route::middleware('dev-env')->group(function () {
     Route::get('test', function(){
-        echo request()->getPreferredLanguage();
+        return response()->json(Help::getRequestData());
     })->name('test');
 });

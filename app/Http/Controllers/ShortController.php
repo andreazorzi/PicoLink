@@ -19,20 +19,27 @@ class ShortController extends Controller
         $browser_language = Help::preferred_language();
         $url = $short->getUrl($browser_language);
         
+        if(!$test){
+            $request_data = Help::getRequestData();
+            
+            $short->visits()->create([
+                'url_id' => $url->id,
+                'language' => $request_data['language'],
+                'device' => $request_data['device_type'],
+                'referer' => $request_data['device_type'],
+            ]);
+        }
+        
         if(config('app.env') == 'local'){
             return response()->json([
                 'short' => $code,
                 'browser_language' => $browser_language,
-                'url' => $url,
+                'url' => $url->url,
                 'urls' => $short->getUrls()
             ]);
         }
         
-        if(!$test){
-            // add new short view
-        }
-        
-        return redirect($url);
+        return redirect($url->url);
     }
     
     public function short_test(Request $request, $code){

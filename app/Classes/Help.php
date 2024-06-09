@@ -4,7 +4,7 @@
 namespace App\Classes;
 
 use Illuminate\Support\Str;
-
+use Detection\MobileDetect;
 
 class Help
 {
@@ -50,5 +50,29 @@ class Help
         $browser_language = request()->getPreferredLanguage();
         
         return explode("_", $browser_language)[0];
+    }
+    
+    public static function getRequestData(){
+        // Browser language
+        $browser_language = explode("_", request()->getPreferredLanguage())[0];
+        
+        // Device type
+        $detect = new MobileDetect;
+        $device_type = "desktop";
+        
+        if($detect->isMobile()){
+            $device_type = $detect->isTablet() ? "tablet" : "mobile";
+        }
+        
+        // Referer
+        $referer = request()->headers->get("referer");
+        
+        $request_data = [
+            "language" => $browser_language,
+            "device_type" => $device_type,
+            "referer" => $referer ? parse_url($referer, PHP_URL_HOST) : "direct"
+        ];
+        
+        return $request_data;
     }
 }

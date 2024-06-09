@@ -48,6 +48,10 @@ class Short extends Model
         return $this->hasMany(Url::class);
     }
     
+    public function visits(){
+        return $this->hasMany(Visit::class);
+    }
+    
     public function getUrl($language = null){
         $url = $this->urls()->where("language", $language)->first();
         
@@ -55,7 +59,7 @@ class Short extends Model
             $url = $this->urls()->where("language", null)->first();
         }
         
-        return $url->url;
+        return $url;
     }
     
     public function getUrls(){

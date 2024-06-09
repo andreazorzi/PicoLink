@@ -10,6 +10,7 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "mobiledetect/mobiledetectlib": "^4.8",
         "sentry/sentry-laravel": "^3.7",
         "socialiteproviders/authentik": "^5.0"
     },
