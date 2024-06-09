@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ShortController extends Controller
 {
-    public function short(Request $request, $code){
+    public function short(Request $request, $code, $test = false){
         $short = Short::where('code', $code)->first();
         
         if(is_null($short)){
@@ -28,6 +28,14 @@ class ShortController extends Controller
             ]);
         }
         
+        if(!$test){
+            // add new short view
+        }
+        
         return redirect($url);
+    }
+    
+    public function short_test(Request $request, $code){
+        return $this->short($request, $code, true);
     }
 }

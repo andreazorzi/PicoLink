@@ -29,7 +29,10 @@ Route::prefix('backoffice')->group(function () {
 });
 
 // Shorts
-Route::get('{short}', [ShortController::class, 'short']);
+Route::prefix('{short}')->group(function () {
+    // Route::get('/', [ShortController::class, 'short']);
+    Route::get('/test', [ShortController::class, 'short_test']);
+});
 
 Route::middleware('dev-env')->group(function () {
     Route::get('test', function(){
