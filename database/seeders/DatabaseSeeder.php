@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
         
         if(config("app.env") == "local"){
-            $shorts = Short::factory(50)->create();
+            $shorts = Short::factory(10)->create();
             
             foreach($shorts as $short){
                 $urls = [];
@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
                     $urls[] = Url::factory(1)->recycle($short)->create(is_null($language) ? ['language' => $language] : []);
                 }
                 
-                $visits = Visit::factory(rand(5, 20))->recycle($short)->recycle(fake()->randomElement($urls))->create();
+                $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[0])->create();
+                $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[1])->create();
             }
         }
     }

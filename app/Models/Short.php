@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Short extends Model
 {
@@ -90,6 +91,29 @@ class Short extends Model
     
     public function getVisits(){
         return $this->visits()->count();
+    }
+    
+    public function getTimeline($from = null, $to = null){
+        $from = new DateTime($from ?? date("Y-m-d", strtotime("-7 days")));
+        $to = new DateTime($to ?? date("Y-m-d"));
+        
+        $data = [];
+        
+        for($i = $from; $i <= $to; $i->modify('+1 day')){
+            $day = [
+                "date" => date("d/m/Y", strtotime($i->format("Y-m-d"))),
+                "total_visits" => $this->visits()->whereDate("created_at", $i->format("Y-m-d"))->count(),
+                "visits" => [],
+            ];
+            
+            foreach($this->urls()->orderBy("language")->get() as $url){
+                $day["visits"][__("languages.".($url->language ?? "default"))] = $url->visits()->whereDate("created_at", $i->format("Y-m-d"))->count();
+            }
+            
+            $data[] = $day;
+        }
+        
+        return $data;
     }
     
     public static function createFromRequest(Request $request):View{

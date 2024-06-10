@@ -42,7 +42,12 @@ import "htmx.org/dist/ext/ajax-header.js";
 import SelectSearch from "@andreazorzi/selectsearch";
 window.SelectSearch = SelectSearch;
 
+// Selectize
 import selectize from "@selectize/selectize";
+
+// Chart.js
+import Chart from 'chart.js/auto';
+window.Chart = Chart;
 
 // Sortablejs
 // import Sortable from 'sortablejs';

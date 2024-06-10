@@ -16,7 +16,7 @@
                     {{-- Title --}}
                     <x-backoffice.title :title="$short->code" :subtitle="$short->description"/>
                         
-                    <div class="row mt-3">
+                    <div class="row mt-3 g-3">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
@@ -44,13 +44,68 @@
                                                         <div class="col align-self-center">
                                                             {{$url->url}}
                                                         </div>
-                                                        <div class="col-auto">
+                                                        <div class="col-auto align-self-center">
                                                             {{$url->visits()->count()}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Timeline
+                                </div>
+                                <div class="card-body">
+                                    <div style="max-height: 350px; width: 100%;">
+                                        <canvas id="timeline" class="w-100"></canvas>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                const data = @json($short->getTimeline());
+                                                
+                                                const labels = data.map(entry => entry.date + " - " + entry.total_visits);
+                                                const languages = [...new Set(data.flatMap(entry => Object.keys(entry.visits)))];
+                                                
+                                                const datasets = languages.map((language, index) => {
+                                                    console.log(language, index);
+                                                    return {
+                                                        label: `${language}`,
+                                                        data: data.map(entry => entry.visits[language] || 0),
+                                                        backgroundColor: `rgba(${index * 60 % 256}, ${(index * 120 + 50) % 256}, ${(index * 200 + 100) % 256}, 0.2)`,
+                                                        borderColor: `rgba(${index * 60 % 256}, ${(index * 120 + 50) % 256}, ${(index * 200 + 100) % 256}, 1)`,
+                                                        borderWidth: 1
+                                                    };
+                                                });
+                                
+                                                new Chart(
+                                                    document.getElementById('timeline'),
+                                                    {
+                                                        type: 'bar',
+                                                        data: {
+                                                            labels: labels,
+                                                            datasets: datasets
+                                                        },
+                                                        options: {
+                                                            responsive: true,
+                                                            maintainAspectRatio: false,
+                                                            scales: {
+                                                                x: {
+                                                                    stacked: true,
+                                                                },
+                                                                y: {
+                                                                    stacked: true,
+                                                                    beginAtZero: true
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                );
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                             </div>

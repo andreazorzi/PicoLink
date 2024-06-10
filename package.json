@@ -21,6 +21,7 @@
         "air-datepicker": "^3.5.3",
         "autocompleter": "^9.2.1",
         "bootstrap": "^5.3.3",
+        "chart.js": "^4.4.3",
         "flag-icons": "^7.2.3",
         "htmx.org": "^1.9.12",
         "jquery": "^3.7.1",

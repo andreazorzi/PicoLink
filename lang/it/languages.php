@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'default' => 'Default',
     'aa' => 'Afar',
     'ab' => 'Abcaso',
     'ae' => 'Avestico',
