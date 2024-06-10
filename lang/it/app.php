@@ -32,6 +32,9 @@ return [
             'meta_title' => 'Home',
             'meta_description' => 'Questa è la homepage',
         ],
+        'short' => [
+            'copy_link' => 'Copia Link',
+        ],
         'maintenance' => [
             'meta_title' => 'Manutenzione',
             'meta_description' => 'Il sito è in manutenzione',

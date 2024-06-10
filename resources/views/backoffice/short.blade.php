@@ -19,6 +19,16 @@
                         
                     <div class="row mt-3 g-3">
                         <div class="col-md-12">
+                            <div class="row justify-content-end">
+                                <div class="col-auto">
+                                    <button class="btn btn-primary btn-sm" onclick="navigator.clipboard.writeText(`{{$short->getLink()}}`); Toastify({text: `{{__('app.backoffice.index.link_copied')}}!`, duration: `1400`, className: `success`, gravity: `bottom`, position: `center`, close: true}).showToast();">
+                                        <i class="fa-solid fa-clipboard"></i>
+                                        {{__("app.pages.short.copy_link")}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row g-3">
