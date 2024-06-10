@@ -13,7 +13,7 @@ class Help
 	}
     
     public static function fragment(string $view, string $fragment, array $data = []):string{
-        return view($view, $data)->fragment($fragment);
+        return view($view, array_merge($data, ["fragment" => true]))->fragment($fragment);
 	}
     
     public static function strToLen(?string $str, int $len, bool $left = false){

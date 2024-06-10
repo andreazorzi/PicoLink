@@ -54,19 +54,18 @@ window.Chart = Chart;
 // window.Sortable = Sortable;
 
 // Airdatepicker
-// import AirDatepicker from 'air-datepicker';
-// windows.AirDatepicker = AirDatepicker;
-// import locale_en from 'air-datepicker/locale/en';
-// import locale_it from 'air-datepicker/locale/it';
-// import locale_de from 'air-datepicker/locale/de';
-// window.locale_en = locale_en;
-// window.locale_it = locale_it;
-// window.locale_de = locale_de;
+import AirDatepicker from 'air-datepicker';
+window.AirDatepicker = AirDatepicker;
+import locale_en from 'air-datepicker/locale/en';
+import locale_it from 'air-datepicker/locale/it';
+import locale_de from 'air-datepicker/locale/de';
+window.locale_en = locale_en;
+window.locale_it = locale_it;
+window.locale_de = locale_de;
 
 // Autocompleter
 // import autocomplete from 'autocompleter';
 // window.autocomplete = autocomplete;
-
 
 import * as Sentry from "@sentry/browser";
 

@@ -62,4 +62,13 @@ class ShortController extends Controller
     public function short_preview(Request $request, Short $short){
         return view('backoffice.short', ['short' => $short]);
     }
+    
+    public function get_timeline_data(Request $request, Short $short){
+        $range = explode(" - ", $request->range);
+        
+        $from = Help::convert_date($range[0]);
+        $to = Help::convert_date($range[1] ?? $range[0]);
+        
+        return Help::fragment("backoffice.short", "timeline", ["short" => $short, "from" => $from, "to" => $to]);
+    }
 }

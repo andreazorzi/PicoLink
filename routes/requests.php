@@ -21,7 +21,7 @@ Route::prefix("backoffice")->group(function(){
 			Route::prefix("{short}")->group(function(){
 				Route::put('update', [ShortController::class, 'update'])->name('short.update');
 				Route::delete('delete', [ShortController::class, 'delete'])->name('short.delete');
-				Route::post('send-reset-password', [ShortController::class, 'send_reset_password'])->name('short.send-reset-password');
+				Route::post('get-timeline-data', [ShortController::class, 'get_timeline_data'])->name('short.get-timeline-data');
 			});
 		});
 	});
