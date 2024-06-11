@@ -22,6 +22,7 @@ Route::prefix("backoffice")->group(function(){
 				Route::put('update', [ShortController::class, 'update'])->name('short.update');
 				Route::delete('delete', [ShortController::class, 'delete'])->name('short.delete');
 				Route::post('get-timeline-data', [ShortController::class, 'get_timeline_data'])->name('short.get-timeline-data');
+				Route::post('share', [ShortController::class, 'share'])->name('short.share');
 			});
 		});
 	});

@@ -14,16 +14,20 @@
         <div id="container" class="pb-3">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    {{-- Title --}}
-                    <x-backoffice.title :title="$short->code" :subtitle="$short->description"/>
-                        
                     <div class="row mt-3 g-3">
                         <div class="col-md-12">
                             <div class="row justify-content-end">
-                                <div class="col-auto">
-                                    <button class="btn btn-primary btn-sm" onclick="navigator.clipboard.writeText(`{{$short->getLink()}}`); Toastify({text: `{{__('app.backoffice.index.link_copied')}}!`, duration: `1400`, className: `success`, gravity: `bottom`, position: `center`, close: true}).showToast();">
-                                        <i class="fa-solid fa-clipboard"></i>
-                                        {{__("app.pages.short.copy_link")}}
+                                <div class="col">
+                                    <h2>{{$short->code}}</h2>
+                                    <span class="fs-5 text-muted">
+                                        {{$short->description}}
+                                    </span>
+                                </div>
+                                <div class="col-auto align-self-end">
+                                    <button class="btn btn-primary btn-sm"
+                                        hx-post="{{route("short.share", [$short])}}" hx-target="#modal .modal-content">
+                                        <i class="fa-solid fa-share"></i>
+                                        {{__("app.pages.short.share")}}
                                     </button>
                                 </div>
                             </div>
@@ -140,6 +144,9 @@
         
         {{-- Ajax responses --}}
         <div id="request-response"></div>
+        
+        {{-- Modal --}}
+        <x-modal />
         
         {{-- Scripts --}}
         <x-backoffice.script></x-backoffice.script>

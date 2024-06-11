@@ -33,6 +33,7 @@ return [
             'meta_description' => 'Questa è la homepage',
         ],
         'short' => [
+            'share' => 'Condividi',
             'copy_link' => 'Copia Link',
         ],
         'maintenance' => [

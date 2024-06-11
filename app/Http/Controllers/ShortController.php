@@ -71,4 +71,8 @@ class ShortController extends Controller
         
         return Help::fragment("backoffice.short", "timeline", ["short" => $short, "from" => $from, "to" => $to]);
     }
+    
+    public function share(Request $request, Short $short){
+        return view('components.backoffice.modals.short-share', ['short' => $short]);
+    }
 }
