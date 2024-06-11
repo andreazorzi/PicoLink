@@ -17,6 +17,15 @@
             {{-- Search Table --}}
             {{-- <x-search-table-filters.users /> --}}
             <x-search-table :model="new App\Models\Short()"></x-search-table>
+            
+            <style>
+                td:nth-child(2) {
+                    max-width: 600px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            </style>
         </div>
                 
         {{-- Menu --}}

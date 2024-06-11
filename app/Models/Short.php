@@ -35,6 +35,10 @@ class Short extends Model
                 "sort" => "desc",
                 "custom-value" => "getCreatedAtText",
             ],
+            "created_at" => [
+                "sort" => "desc",
+                "custom-value" => "getCreatedAtText",
+            ],
         ];
     }
     

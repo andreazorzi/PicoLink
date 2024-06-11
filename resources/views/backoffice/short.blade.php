@@ -11,7 +11,7 @@
         {{-- Header --}}
         <x-backoffice.header />
 
-        <div id="container">
+        <div id="container" class="pb-3">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     {{-- Title --}}

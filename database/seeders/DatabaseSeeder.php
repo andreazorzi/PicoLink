@@ -26,12 +26,13 @@ class DatabaseSeeder extends Seeder
             foreach($shorts as $short){
                 $urls = [];
                 
-                foreach([null, 'en'] as $language){
-                    $urls[] = Url::factory(1)->recycle($short)->create(is_null($language) ? ['language' => $language] : []);
+                foreach([null, 'en', 'de'] as $language){
+                    $urls[] = Url::factory(1)->recycle($short)->create(['language' => $language]);
                 }
                 
                 $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[0])->create();
                 $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[1])->create();
+                $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[2])->create();
             }
         }
     }
