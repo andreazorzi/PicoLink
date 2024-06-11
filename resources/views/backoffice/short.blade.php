@@ -127,10 +127,27 @@
                                                             }
                                                         }
                                                     );
+                                                    
+                                                    // maps data
+                                                    maps_data = @json($short->getMaps($from, $to));
+                                                    drawRegionsMap();
                                                 @endif
                                             </script>
                                         </div>
                                     @endfragment
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Mappa
+                                </div>
+                                <div id="maps-container" class="card-body text-center">
+                                    <div id="regions_div" style="max-width: 900px; margin: auto;"></div>
+                                    <script>
+                                        maps_data = @json($short->getMaps($from, $to));
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -150,8 +167,30 @@
         
         {{-- Scripts --}}
         <x-backoffice.script></x-backoffice.script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script>
+            function drawRegionsMap() {
+                $("#regions_div").html("");
+                
+                try {
+                    var data = google.visualization.arrayToDataTable(maps_data);
+
+                    var options = {
+                        width: '100%',
+                        colorAxis: {colors: ['#d3f0ce', '#109618']}
+                    };
+
+                    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+                    chart.draw(data, options);
+                } catch (error) {}
+            }
+            
             document.addEventListener("DOMContentLoaded", function() {
+                $(window).resize(function(){
+                    drawRegionsMap();
+                });
+                
                 delivery_date = new AirDatepicker('#range', {
                     locale: locale_{{App::getLocale()}},
                     dateFormat: 'dd/MM/yyyy',
@@ -194,6 +233,12 @@
                     }
                 });
                 delivery_date.selectDate([new Date('{{date("Y-m-d", strtotime($from))}}'), new Date('{{date("Y-m-d", strtotime($to))}}')]);
+                
+                // Maps
+                google.charts.load('current', {
+                    'packages':['geochart'],
+                });
+                google.charts.setOnLoadCallback(drawRegionsMap);
             });
         </script>
     </body>

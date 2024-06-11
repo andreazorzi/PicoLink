@@ -120,6 +120,21 @@ class Short extends Model
         return $data;
     }
     
+    public function getMaps($from = null, $to = null){
+        $from = $from ?? date("Y-m-d", strtotime("-7 days"));
+        $to = ($to ?? date("Y-m-d"))." 23:59:59";
+        
+        $data = [
+            ["country", "Click"]
+        ];
+        
+        foreach(Visit::select(DB::raw("visits.country, COUNT(*) AS count"))->where("short_id", $this->id)->whereBetween("created_at", [$from, $to])->groupBy("country")->get() as $visit){
+            $data[] = [config("countries.{$visit->country}"), $visit->count];
+        }
+        
+        return $data;
+    }
+    
     public static function createFromRequest(Request $request):View{
         return (new self)->updateFromRequest($request, false);
     }
