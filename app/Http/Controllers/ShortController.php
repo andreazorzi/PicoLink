@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Help;
-use App\Jobs\VisitCountry;
 use App\Models\Short;
+use App\Jobs\VisitCountry;
 use Illuminate\Http\Request;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 use Illuminate\Support\Facades\Storage;
 
 class ShortController extends Controller
@@ -74,5 +76,18 @@ class ShortController extends Controller
     
     public function share(Request $request, Short $short){
         return view('components.backoffice.modals.short-share', ['short' => $short]);
+    }
+    
+    public function qrcode(Request $request, Short $short){
+        $options = new QROptions;
+        $options->quietzoneSize = 1;
+        $contents = (new QRCode($options))->render($short->getLink());
+        $path =  $short->code.".svg";
+
+        //store file temporarily
+        file_put_contents($path, $contents);
+
+        //download file and delete it
+        return response()->download($path)->deleteFileAfterSend(true);
     }
 }

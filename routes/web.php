@@ -24,8 +24,11 @@ use App\Http\Controllers\ShortController;
 Route::prefix('backoffice')->group(function () {
     Route::get('/', [RouteController::class, 'index', [User::current()]])->name('backoffice.index');
     
-    Route::middleware(['role:'.config("auth.authentik.administrators")])->group(function () {
-        Route::get('short/{short:code}', [ShortController::class, 'short_preview'])->name('backoffice.short');
+    Route::middleware(['auth'])->group(function () {
+        Route::prefix('short/{short:code}')->group(function(){
+            Route::get('/', [ShortController::class, 'short_preview'])->name('backoffice.short');
+            Route::get('/qrcode', [ShortController::class, 'short_preview'])->name('backoffice.short.qrcode-download');
+        });
     });
 });
 
