@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Tag;
 use App\Models\Url;
 use App\Models\Short;
 use App\Models\Visit;
+use App\Models\TagCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +23,12 @@ class DatabaseSeeder extends Seeder
         ]);
         
         if(config("app.env") == "local"){
+            $tag_categories = TagCategory::factory(3)->create();
+            
+            foreach($tag_categories as $tag_category){
+                $tag_categories = Tag::factory(rand(3,5))->recycle($tag_category)->create();
+            }
+            
             $shorts = Short::factory(10)->create();
             
             foreach($shorts as $short){
@@ -30,9 +38,9 @@ class DatabaseSeeder extends Seeder
                     $urls[] = Url::factory(1)->recycle($short)->create(['language' => $language]);
                 }
                 
-                $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[0])->create();
-                $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[1])->create();
-                $visits = Visit::factory(rand(20,30))->recycle($short)->recycle($urls[2])->create();
+                $visits = Visit::factory(rand(5,10))->recycle($short)->recycle($urls[0])->create();
+                $visits = Visit::factory(rand(5,10))->recycle($short)->recycle($urls[1])->create();
+                $visits = Visit::factory(rand(5,10))->recycle($short)->recycle($urls[2])->create();
             }
         }
     }

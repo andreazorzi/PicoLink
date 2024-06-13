@@ -69,6 +69,21 @@ return new class extends Migration
             $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->nullOnDelete();
             $table->foreign('url_id')->references('id')->on('urls')->onUpdate('cascade')->nullOnDelete();
         });
+        
+        // Tag Categories
+        Schema::create('tag_categories', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->string('name');
+        });
+        
+        // Tags
+        Schema::create('tags', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->integer('tag_category_id');
+            $table->string('name');
+            
+            $table->foreign('tag_category_id')->references('id')->on('tag_categories')->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**
