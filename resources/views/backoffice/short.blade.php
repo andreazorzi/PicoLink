@@ -18,7 +18,11 @@
                         <div class="col-md-12">
                             <div class="row justify-content-end">
                                 <div class="col">
-                                    <h2>{{$short->code}}</h2>
+                                    <h2>
+                                        <i class="fa-solid fa-pen-to-square fs-3" role="button"
+                                            hx-post="{{route("short.details", [$short])}}" hx-target="#modal .modal-content"></i>
+                                        {{$short->code}}
+                                    </h2>
                                     <span class="fs-5 text-muted">
                                         {{$short->description}}
                                     </span>
@@ -163,7 +167,7 @@
         <div id="request-response"></div>
         
         {{-- Modal --}}
-        <x-modal />
+        <x-modal size="lg"/>
         
         {{-- Scripts --}}
         <x-backoffice.script></x-backoffice.script>

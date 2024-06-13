@@ -12,6 +12,20 @@ use Illuminate\Support\Facades\Storage;
 
 class ShortController extends Controller
 {
+    public function details(Request $request, ?Short $short = null){
+		return view('components.backoffice.modals.short-data', ["short" => $short]);
+    }
+    
+    // Create short
+    public function create(Request $request){
+        return Short::createFromRequest($request);
+    }
+    
+    // Update short
+    public function update(Request $request, Short $short){
+        return $short->updateFromRequest($request);
+    }
+    
     public function short(Request $request, $code, $test = false){
         $short = Short::where('code', $code)->first();
         

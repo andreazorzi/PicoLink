@@ -165,7 +165,7 @@ class Short extends Model
         $validator = Validator::make($request->all(), [
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],
             // self::getModelKey() => ['required', ($update ? "exists" : "unique").":App\Models\\".class_basename(new self).",".self::getModelKey()], // for non incrementing keys
-			"name" => ['required']
+			"description" => ['required']
 		]);
         
         if ($validator->fails()) {
