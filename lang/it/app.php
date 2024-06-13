@@ -5,20 +5,28 @@ declare(strict_types=1);
 return [
     'backoffice' => [
         'index' => [
-            'link_copied' => 'Link copiato',
-        ],
-        'users' => [
-            'title' => 'Gestione Utenti',
+            'title' => 'Shorts',
             'color' => '#10B9C4',
-            'icon' => 'fa-user-group',
+            'icon' => 'fa-link',
         ],
-    ],
-    'menu' => [
-        'examples' => [
-            'title' => 'Gestione Esempi',
-            'icon' => 'fa-ticket',
+        'tags' => [
+            'title' => 'Tags',
+            'link_copied' => 'Link copiato',
+            'color' => '#10B9C4',
+            'icon' => 'fa-link',
         ],
+        // 'users' => [
+        //     'title' => 'Gestione Utenti',
+        //     'color' => '#10B9C4',
+        //     'icon' => 'fa-user-group',
+        // ],
     ],
+    // 'menu' => [
+    //     'examples' => [
+    //         'title' => 'Gestione Esempi',
+    //         'icon' => 'fa-ticket',
+    //     ],
+    // ],
     'pages' => [
         'login' => [
             'meta_title' => 'Login',
@@ -31,6 +39,8 @@ return [
         'index' => [
             'meta_title' => 'Home',
             'meta_description' => 'Questa è la homepage',
+            
+            'link_copied' => 'Link copiato',
         ],
         'short' => [
             'share' => 'Condividi',

@@ -36,7 +36,7 @@
 		navigator.clipboard.writeText(link);
 
 		Toastify({
-			text: `{{__('app.backoffice.index.link_copied')}}!`,
+			text: `{{__('app.pages.index.link_copied')}}!`,
 			duration: `1400`,
 			className: `success`,
 			gravity: `bottom`,
