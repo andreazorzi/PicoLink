@@ -82,8 +82,13 @@
                                             {{__("app.pages.short.timeline")}}
                                         </div>
                                         <div class="col-auto align-self-center text-end">
-                                            <input type="text" id="range" class="form-select" name="range" role="button" readonly
-                                                hx-post="{{route("short.get-timeline-data", [$short])}}" hx-target="#timeline-container">
+                                            <div class="input-group">
+                                                <label class="input-group-text" for="range" role="button">
+                                                    <i class="fa-solid fa-calendar-days"></i>
+                                                </label>
+                                                <input type="text" id="range" class="form-select" name="range" role="button" readonly
+                                                    hx-post="{{route("short.get-timeline-data", [$short])}}" hx-target="#timeline-container">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
