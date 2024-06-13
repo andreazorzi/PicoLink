@@ -37,7 +37,7 @@
                                 <div class="card-header">
                                     <div class="row g-3">
                                         <div class="col-auto">
-                                            URLs
+                                            {{__("app.pages.short.urls")}}
                                         </div>
                                         <div class="col align-self-center text-end">
                                             {{ucfirst(__("validation.attributes.visits"))}}
@@ -75,7 +75,7 @@
                                 <div class="card-header">
                                     <div class="row g-3">
                                         <div class="col align-self-center">
-                                            Timeline
+                                            {{__("app.pages.short.timeline")}}
                                         </div>
                                         <div class="col-auto align-self-center text-end">
                                             <input type="text" id="range" class="form-select" name="range" role="button" readonly
@@ -141,7 +141,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    Mappa
+                                    {{__("app.pages.short.map")}}
                                 </div>
                                 <div id="maps-container" class="card-body text-center">
                                     <div id="regions_div" style="max-width: 900px; margin: auto;"></div>

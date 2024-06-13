@@ -35,6 +35,9 @@ return [
         'short' => [
             'share' => 'Condividi',
             'copy_link' => 'Copia Link',
+            'urls' => 'URLs',
+            'timeline' => 'Timeline',
+            'map' => 'Mappa',
         ],
         'maintenance' => [
             'meta_title' => 'Manutenzione',
