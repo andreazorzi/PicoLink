@@ -145,11 +145,15 @@ class Short extends Model
         $html = '';
         
         foreach(Visit::selectRaw("visits.referrer, COUNT(*) AS count")->where("short_id", $this->id)->whereBetween("created_at", [$from, $to])->groupBy("referrer")->orderBy("count", "desc")->orderBy("referrer")->get() as $visit){
-            $favicon = file_get_contents("https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://{$visit->referrer}&size=16");
+            try {
+                $favicon = base64_encode(file_get_contents("https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://{$visit->referrer}&size=16"));
+            } catch (\Throwable $th) {
+                $favicon = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAEUlEQVR42mNkIAAYRxWMJAUAE5gAEdz4t9QAAAAASUVORK5CYII=";
+            }
             $html .= '
                 <tr>
                     <td>
-                        <img class="me-2" src="data:image/png;base64,'.base64_encode($favicon).'">
+                        <img class="me-2" src="data:image/png;base64,'.$favicon.'">
                         '.$visit->referrer.'
                     </td>
                     <td class="text-end">'.$visit->count.'</td>
