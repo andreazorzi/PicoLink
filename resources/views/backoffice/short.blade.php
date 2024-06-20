@@ -16,7 +16,7 @@
                 <div class="col-md-8">
                     <div class="row mt-3 g-3">
                         <div class="col-md-12">
-                            <div class="row justify-content-end">
+                            <div class="row justify-content-end g-3">
                                 <div class="col">
                                     <h2>
                                         <i class="fa-solid fa-pen-to-square fs-3" role="button"
@@ -27,7 +27,7 @@
                                         {{$short->description}}
                                     </span>
                                 </div>
-                                <div class="col-auto align-self-end">
+                                <div class="col-12 col-md-auto align-self-end text-end">
                                     <button class="btn btn-primary btn-sm"
                                         hx-post="{{route("short.share", [$short])}}" hx-target="#modal .modal-content">
                                         <i class="fa-solid fa-share"></i>
