@@ -34,14 +34,7 @@ Route::prefix('backoffice')->group(function () {
 
 Route::middleware('dev-env')->group(function () {
     Route::get('test', function(){
-        echo '
-            <img src="'.asset("images/lang/default.svg").'" title="Default"> Default<br>
-        ';
-        foreach(__("languages") as $key => $value){
-            echo '
-                <img src="'.asset("images/lang/".$key.".svg").'" title="'.$value.'"> '.$value.'<br>
-            ';
-        }
+        dd(Help::getRequestData());
     })->name('test');
 });
 

@@ -65,7 +65,7 @@ class Help
         }
         
         // Referrer
-        $referrer = request()->headers->get("referrer");
+        $referrer = request()->headers->get("referer");
         
         $request_data = [
             "ip" => config('app.env') == 'local' ? fake()->ipv4() : request()->ip(),
