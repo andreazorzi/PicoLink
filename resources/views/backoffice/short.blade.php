@@ -87,87 +87,15 @@
                                                     <i class="fa-solid fa-calendar-days"></i>
                                                 </label>
                                                 <input type="text" id="range" class="form-select" name="range" role="button" readonly
-                                                    hx-post="{{route("short.get-timeline-data", [$short])}}" hx-target="#timeline-container">
+                                                    hx-post="{{route("short.get-timeline-data", [$short])}}" hx-target="#timeline-script">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="timeline-container" class="card-body">
-                                    @fragment("timeline")
-                                        <div style="max-height: 350px; width: 100%;">
-                                            <canvas id="timeline" class="w-100"></canvas>
-                                            <script>
-                                                @if (!is_null($fragment ?? null))
-                                                    data = @json($short->getTimeline($from, $to));
-                                                    
-                                                    labels = data.map(entry => entry.date + " - " + entry.total_visits);
-                                                    languages = [...new Set(data.flatMap(entry => Object.keys(entry.visits)))];
-                                                    
-                                                    datasets = languages.map((language, index) => {
-                                                        return {
-                                                            label: `${language}`,
-                                                            data: data.map(entry => entry.visits[language] || 0),
-                                                            backgroundColor: `rgba(${index * 60 % 256}, ${(index * 120 + 50) % 256}, ${(index * 200 + 100) % 256}, 0.2)`,
-                                                            borderColor: `rgba(${index * 60 % 256}, ${(index * 120 + 50) % 256}, ${(index * 200 + 100) % 256}, 1)`,
-                                                            borderWidth: 1
-                                                        };
-                                                    });
-                                    
-                                                    new Chart(
-                                                        document.getElementById('timeline'),
-                                                        {
-                                                            type: 'bar',
-                                                            data: {
-                                                                labels: labels,
-                                                                datasets: datasets
-                                                            },
-                                                            options: {
-                                                                responsive: true,
-                                                                maintainAspectRatio: false,
-                                                                scales: {
-                                                                    x: {
-                                                                        stacked: true,
-                                                                    },
-                                                                    y: {
-                                                                        stacked: true,
-                                                                        beginAtZero: true
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    );
-                                                    
-                                                    // devices data
-                                                    devices_data = @json($short->getDevices($from, $to));
-                                                    new Chart(
-                                                        document.getElementById('devices'),
-                                                        {
-                                                            type: 'doughnut',
-                                                            data: {
-                                                                labels: devices_data.labels,
-                                                                datasets: [{
-                                                                    label: '{{__("validation.attributes.visits")}}',
-                                                                    data: devices_data.data,
-                                                                    hoverOffset: 4
-                                                                }]
-                                                            },
-                                                            options: {
-                                                                responsive: true,
-                                                                maintainAspectRatio: false,
-                                                            }
-                                                        }
-                                                    );
-                                                    
-                                                    // referrers data
-                                                    $("#referrers").html(`{!!$short->getReferrers($from, $to)!!}`);
-                                                    
-                                                    // maps data
-                                                    maps_data = @json($short->getMaps($from, $to));
-                                                    drawRegionsMap();
-                                                @endif
-                                            </script>
-                                        </div>
-                                    @endfragment
+                                <div class="card-body">
+                                    <div style="max-height: 350px; width: 100%;">
+                                        <canvas id="timeline" class="w-100"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -227,12 +155,14 @@
         <div id="request-response"></div>
         
         {{-- Modal --}}
-        <x-modal size="lg"/>
+        <x-modal/>
         
         {{-- Scripts --}}
         <x-backoffice.script></x-backoffice.script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script>
+            let charts = [];
+            
             function drawRegionsMap() {
                 $("#regions_div").html("");
                 
@@ -305,5 +235,88 @@
                 google.charts.setOnLoadCallback(drawRegionsMap);
             });
         </script>
+        <div id="timeline-script">
+            @fragment("timeline")
+                <script>
+                    @if (!is_null($fragment ?? null))
+                        for (let id in Chart.instances) {
+                            Chart.instances[id].destroy();
+                        }
+                    
+                        data = @json($short->getTimeline($from, $to));
+                    
+                        labels = data.map(entry => entry.date + " - " + entry.total_visits);
+                        languages = [...new Set(data.flatMap(entry => Object.keys(entry.visits)))];
+                    
+                        datasets = languages.map((language, index) => {
+                            return {
+                                label: `${language}`,
+                                data: data.map(entry => entry.visits[language] || 0),
+                                backgroundColor: `rgba(${index * 60 % 256}, ${(index * 120 + 50) % 256}, ${(index * 200 + 100) % 256}, 0.2)`,
+                                borderColor: `rgba(${index * 60 % 256}, ${(index * 120 + 50) % 256}, ${(index * 200 + 100) % 256}, 1)`,
+                                borderWidth: 1
+                            };
+                        });
+                    
+                        // timeline
+                        charts.push(
+                            new Chart(
+                                document.getElementById('timeline'),
+                                {
+                                    type: 'bar',
+                                    data: {
+                                        labels: labels,
+                                        datasets: datasets
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        scales: {
+                                            x: {
+                                                stacked: true,
+                                            },
+                                            y: {
+                                                stacked: true,
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                }
+                            )
+                        );
+                    
+                        // devices data
+                        devices_data = @json($short->getDevices($from, $to));
+                        charts.push(
+                            new Chart(
+                                document.getElementById('devices'),
+                                {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: devices_data.labels,
+                                        datasets: [{
+                                            label: '{{__("validation.attributes.visits")}}',
+                                            data: devices_data.data,
+                                            hoverOffset: 4
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                    }
+                                }
+                            )
+                        );
+                    
+                        // referrers data
+                        $("#referrers").html(`{!!$short->getReferrers($from, $to)!!}`);
+                    
+                        // maps data
+                        maps_data = @json($short->getMaps($from, $to));
+                        drawRegionsMap();
+                    @endif
+                </script>
+            @endfragment
+        </div>
     </body>
 </html>
