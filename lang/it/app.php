@@ -48,7 +48,7 @@ return [
             'urls' => 'URLs',
             'timeline' => 'Timeline',
             'devices' => 'Dispositivi',
-            'referrals' => 'Referral',
+            'referrers' => 'Referral',
             'map' => 'Mappa',
         ],
         'maintenance' => [

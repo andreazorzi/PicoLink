@@ -158,6 +158,9 @@
                                                         }
                                                     );
                                                     
+                                                    // referrers data
+                                                    $("#referrers").html(`{!!$short->getReferrers($from, $to)!!}`);
+                                                    
                                                     // maps data
                                                     maps_data = @json($short->getMaps($from, $to));
                                                     drawRegionsMap();
@@ -185,7 +188,7 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-6">
-                                            {{__("app.pages.short.referrals")}}
+                                            {{__("app.pages.short.referrers")}}
                                         </div>
                                         <div class="col-6 text-end">
                                             {{ucfirst(__("validation.attributes.visits"))}}
@@ -193,8 +196,8 @@
                                     </div>
                                 </div>
                                 <div id="devices-container" class="card-body">
-                                    <table id="referrals" class="table table-striped">
-                                        {!!$short->getReferrers($from, $to)!!}
+                                    <table id="referrers" class="table table-striped">
+                                        
                                     </table>
                                 </div>
                             </div>
