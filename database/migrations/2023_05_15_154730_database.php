@@ -63,7 +63,7 @@ return new class extends Migration
             $table->string('language');
             $table->string('device', 50);
             $table->string('country', 2)->nullable();
-            $table->string('referer');
+            $table->string('referrer');
             $table->dateTime('created_at')->useCurrent();
             
             $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->nullOnDelete();

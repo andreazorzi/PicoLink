@@ -64,14 +64,14 @@ class Help
             $device_type = $detect->isTablet() ? "tablet" : "mobile";
         }
         
-        // Referer
-        $referer = request()->headers->get("referer");
+        // Referrer
+        $referrer = request()->headers->get("referrer");
         
         $request_data = [
             "ip" => config('app.env') == 'local' ? fake()->ipv4() : request()->ip(),
             "language" => $browser_language,
             "device_type" => $device_type,
-            "referer" => $referer ? parse_url($referer, PHP_URL_HOST) : "direct"
+            "referrer" => $referrer ? parse_url($referrer, PHP_URL_HOST) : "direct"
         ];
         
         return $request_data;

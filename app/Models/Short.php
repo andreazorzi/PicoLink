@@ -120,6 +120,46 @@ class Short extends Model
         return $data;
     }
     
+    public function getDevices($from = null, $to = null){
+        $from = $from ?? date("Y-m-d", strtotime("-7 days"));
+        $to = ($to ?? date("Y-m-d"))." 23:59:59";
+        
+        $data = [];
+        
+        foreach(Visit::selectRaw("visits.device, COUNT(*) AS count")->where("short_id", $this->id)->whereBetween("created_at", [$from, $to])->groupBy("device")->get() as $visit){
+            $data[$visit->device] = $visit->count;
+        }
+        
+        $data = [
+            "labels" => array_keys($data),
+            "data" => array_values($data),
+        ];
+        
+        return $data;
+    }
+    
+    public function getReferrers($from = null, $to = null){
+        $from = $from ?? date("Y-m-d", strtotime("-7 days"));
+        $to = ($to ?? date("Y-m-d"))." 23:59:59";
+        
+        $html = '';
+        
+        foreach(Visit::selectRaw("visits.referrer, COUNT(*) AS count")->where("short_id", $this->id)->whereBetween("created_at", [$from, $to])->groupBy("referrer")->orderBy("count", "desc")->orderBy("referrer")->get() as $visit){
+            $favicon = file_get_contents("https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://{$visit->referrer}&size=16");
+            $html .= '
+                <tr>
+                    <td>
+                        <img class="me-2" src="data:image/png;base64,'.base64_encode($favicon).'">
+                        '.$visit->referrer.'
+                    </td>
+                    <td class="text-end">'.$visit->count.'</td>
+                </tr>
+            ';
+        }
+        
+        return $html;
+    }
+    
     public function getMaps($from = null, $to = null){
         $from = $from ?? date("Y-m-d", strtotime("-7 days"));
         $to = ($to ?? date("Y-m-d"))." 23:59:59";

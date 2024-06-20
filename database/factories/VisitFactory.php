@@ -26,7 +26,7 @@ class VisitFactory extends Factory
             'device' => fake()->randomElement(['mobile', 'tablet', 'desktop']),
             // 'country' => Str::lower(fake()->countryCode()),
             'country' => fake()->randomElement(['it', 'de', 'gb', 'fr']),
-            'referer' => parse_url(fake()->url(), PHP_URL_HOST),
+            'referrer' => fake()->randomElement(['facebook.com', 'google.com', 'bing.com', 'x.com', 'youtube.com']),
             'created_at' => date("Y-m-d H:i:s", rand(strtotime("-7 days"), strtotime("today"))),
         ];
     }

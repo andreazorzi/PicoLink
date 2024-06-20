@@ -47,6 +47,8 @@ return [
             'copy_link' => 'Copia Link',
             'urls' => 'URLs',
             'timeline' => 'Timeline',
+            'devices' => 'Dispositivi',
+            'referrals' => 'Referral',
             'map' => 'Mappa',
         ],
         'maintenance' => [

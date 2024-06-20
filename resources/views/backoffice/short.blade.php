@@ -137,6 +137,27 @@
                                                         }
                                                     );
                                                     
+                                                    // devices data
+                                                    devices_data = @json($short->getDevices($from, $to));
+                                                    new Chart(
+                                                        document.getElementById('devices'),
+                                                        {
+                                                            type: 'doughnut',
+                                                            data: {
+                                                                labels: devices_data.labels,
+                                                                datasets: [{
+                                                                    label: '{{__("validation.attributes.visits")}}',
+                                                                    data: devices_data.data,
+                                                                    hoverOffset: 4
+                                                                }]
+                                                            },
+                                                            options: {
+                                                                responsive: true,
+                                                                maintainAspectRatio: false,
+                                                            }
+                                                        }
+                                                    );
+                                                    
                                                     // maps data
                                                     maps_data = @json($short->getMaps($from, $to));
                                                     drawRegionsMap();
@@ -144,6 +165,37 @@
                                             </script>
                                         </div>
                                     @endfragment
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    {{__("app.pages.short.devices")}}
+                                </div>
+                                <div id="devices-container" class="card-body">
+                                    <div style="max-height: 350px; width: 100%;">
+                                        <canvas id="devices" class="w-100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            {{__("app.pages.short.referrals")}}
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            {{ucfirst(__("validation.attributes.visits"))}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="devices-container" class="card-body">
+                                    <table id="referrals" class="table table-striped">
+                                        {!!$short->getReferrers($from, $to)!!}
+                                    </table>
                                 </div>
                             </div>
                         </div>

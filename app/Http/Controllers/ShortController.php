@@ -43,7 +43,7 @@ class ShortController extends Controller
                 'url_id' => $url->id,
                 'language' => $request_data['language'],
                 'device' => $request_data['device_type'],
-                'referer' => $request_data['referer'],
+                'referrer' => $request_data['referrer'],
             ]);
             
             VisitCountry::dispatch($visit, $request_data['ip']);
