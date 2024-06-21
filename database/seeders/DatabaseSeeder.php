@@ -24,10 +24,7 @@ class DatabaseSeeder extends Seeder
         
         if(config("app.env") == "local"){
             $tag_categories = TagCategory::factory(3)->create();
-            
-            foreach($tag_categories as $tag_category){
-                $tag_categories = Tag::factory(rand(3,5))->recycle($tag_category)->create();
-            }
+            $tags = Tag::factory(15)->recycle($tag_categories)->create();
             
             $shorts = Short::factory(10)->create();
             
@@ -41,6 +38,8 @@ class DatabaseSeeder extends Seeder
                 $visits = Visit::factory(rand(5,10))->recycle($short)->recycle($urls[0])->create();
                 $visits = Visit::factory(rand(5,10))->recycle($short)->recycle($urls[1])->create();
                 $visits = Visit::factory(rand(5,10))->recycle($short)->recycle($urls[2])->create();
+                
+                $short->tags()->sync($tags->random(rand(1,3))->pluck('id')->toArray());
             }
         }
     }
