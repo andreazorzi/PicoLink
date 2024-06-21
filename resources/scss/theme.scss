@@ -217,6 +217,14 @@ body{
 	top: 73px;
 }
 
+.fs-6_5{
+	font-size: 0.875rem!important;
+	
+	@media (min-width: 1200px){
+		font-size: 0.875rem!important;
+	}
+}
+
 .fs-7{
 	font-size: 0.75rem!important;
 	

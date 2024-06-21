@@ -11,9 +11,8 @@ return [
         ],
         'tags' => [
             'title' => 'Tags',
-            'link_copied' => 'Link copiato',
             'color' => '#10B9C4',
-            'icon' => 'fa-link',
+            'icon' => 'fa-tags',
         ],
         // 'users' => [
         //     'title' => 'Gestione Utenti',
@@ -50,6 +49,12 @@ return [
             'devices' => 'Dispositivi',
             'referrers' => 'Referral',
             'map' => 'Mappa',
+        ],
+        'tags' => [
+            'meta_title' => 'Tags',
+            'meta_description' => 'Questa è la pagina delle tag',
+            
+            'add_tag' => 'Aggiungi Tag',
         ],
         'maintenance' => [
             'meta_title' => 'Manutenzione',

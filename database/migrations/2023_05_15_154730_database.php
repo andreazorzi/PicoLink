@@ -81,6 +81,8 @@ return new class extends Migration
             $table->integer('id')->autoIncrement();
             $table->integer('tag_category_id');
             $table->string('name');
+            $table->char('background_color', 7)->default('#000000');
+            $table->char('text_color', 7)->default('#ffffff');
             
             $table->foreign('tag_category_id')->references('id')->on('tag_categories')->onUpdate('cascade')->onDelete('cascade');
         });

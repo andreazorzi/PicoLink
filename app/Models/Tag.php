@@ -49,10 +49,14 @@ class Tag extends Model
             return view("components.alert", ["status" => "danger", "message" => $validation["message"]]);
         }
         
-        // // Custom key value for model without incrementing
-        // if(!$this->incrementing && !$update){
-        //     // $request->merge([self::getModelKey() => self::modelCustomKeyGeneration()]);
-        // }
+        // Custom key value for model without incrementing
+        $tag_category = TagCategory::where("name", $request->tag_category)->first();
+        
+        if(is_null($tag_category)){
+            $tag_category = TagCategory::create(["name" => $request->tag_category]);
+        }
+        
+        $request->merge(["tag_category_id" => $tag_category->id]);
         
         // Fill the model with the request
         $this->fill($request->all());
@@ -62,14 +66,16 @@ class Tag extends Model
             $this->save();
         }
         
-        return view("components.alert", ["status" => "success", "message" => "Dipinto salvato", "callback" => 'modal.hide(); htmx.trigger("#page", "change");']);
+        return view("components.alert", ["status" => "success", "message" => "Tag salvato", "beforeshow" => 'modal.hide(); htmx.ajax("post", "'.route("tags.list").'", "#tags")']);
     }
     
     public static function validate(Request $request, bool $update):array{
         $validator = Validator::make($request->all(), [
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],
-            // self::getModelKey() => ['required', ($update ? "exists" : "unique").":App\Models\\".class_basename(new self).",".self::getModelKey()], // for non incrementing keys
-			"description" => ['required']
+			"name" => ['required'],
+			"tag_category" => ['required'],
+			"background_color" => ['required', 'regex:/^#[A-Fa-f0-9]{6}$/'],
+			"text_color" => ['required', 'regex:/^#[A-Fa-f0-9]{6}$/'],
 		]);
         
         if ($validator->fails()) {

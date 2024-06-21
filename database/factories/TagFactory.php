@@ -18,9 +18,18 @@ class TagFactory extends Factory
      */
     public function definition(): array
     {
+        $background_color = fake()->hexColor();
+        $r = hexdec(substr($background_color, 1, 2));
+        $g = hexdec(substr($background_color, 3, 2));
+        $b = hexdec(substr($background_color, 5, 2));
+        $yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+        $text_color = ($yiq >= 128) ? '#000000' : '#ffffff';
+        
         return [
-            'name' => fake()->unique()->word(),
+            'name' => ucwords(fake()->unique()->word()),
             'tag_category_id' => TagCategory::factory(),
+            'background_color' => $background_color,
+            'text_color' => $text_color,
         ];
     }
 }

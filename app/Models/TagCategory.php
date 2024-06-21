@@ -39,6 +39,10 @@ class TagCategory extends Model
         ];
     }
     
+    public function tags(){
+        return $this->hasMany(Tag::class);
+    }
+    
     public static function createFromRequest(Request $request):View{
         return (new self)->updateFromRequest($request, false);
     }

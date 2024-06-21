@@ -217,5 +217,8 @@ return [
         'status' => 'status',
         'code' => 'codice',
         'visits' => 'visite',
+        'tag_category' => 'categoria tag',
+        'background_color' => 'colore background',
+        'text_color' => 'colore testo',
     ],
 ];

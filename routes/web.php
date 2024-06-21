@@ -29,6 +29,8 @@ Route::prefix('backoffice')->group(function () {
             Route::get('/', [ShortController::class, 'short_preview'])->name('backoffice.short');
             Route::get('/qrcode', [ShortController::class, 'short_preview'])->name('backoffice.short.qrcode-download');
         });
+
+        Route::view('tags', 'backoffice.tags')->name('backoffice.tags');
     });
 });
 
