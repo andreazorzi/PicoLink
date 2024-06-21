@@ -2,22 +2,46 @@
 	use App\Models\TagCategory;	
 @endphp
 <div class="modal-header">
-	<h1 class="modal-title fs-5" id="modalLabel">Short - {{$short->code}}</h1>
+	<h1 class="modal-title fs-5" id="modalLabel">Short @isset($short) - {{$short->code}} @endisset</h1>
 	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
-	<div class="row">
-		<div class="col-12 mb-3">
+	<div class="row g-3">
+		@empty($short)
+			<div class="col-md-12">
+				<div id="short-urls" class="row g-3">
+					<div class="col-12">
+						<label>Default Url</label>
+						<div class="input-group">
+							<span class="input-group-text p-0 overflow-hidden">
+								<img class="url-flag" title="Default" alt="Default" src="{{asset("images/lang/default.svg")}}">
+							</span>
+							<input type="text" class="form-control" id="short-defult_url" name="urls[_default]">
+						</div>
+					</div>
+					<div class="col-12">
+						<label>Url in lingua</label>s
+					</div>
+				</div>
+			</div>
+			<div class="col-12 text-center">
+				<button class="btn btn-primary btn-sm fs-7" hx-post="{{route("short.add-url-modal")}}" hx-target="#modal-2 .modal-content">
+					<i class="fa-solid fa-plus"></i>
+					{{__("app.pages.short.add_language")}}
+				</button>
+			</div>
+		@endempty
+		<div class="col-12">
 			<label>{{ucfirst(__('validation.attributes.description'))}}</label>
-			<textarea class="form-control" id="short-description" name="description" rows="3">{{$short->description}}</textarea>
+			<textarea class="form-control" id="short-description" name="description" rows="3">{{$short->description ?? ""}}</textarea>
 		</div>
-		<div class="col-12 mb-3">
+		<div class="col-12">
 			<label>{{ucfirst(__('validation.attributes.tags'))}}</label>
 			<select class="selectize" id="short-tags" name="tags[]" multiple>
 				@foreach (TagCategory::orderBy("name")->get() as $category)
 					<optgroup label="{{$category->name}}">
 						@foreach ($category->tags as $tag)
-							<option value="{{$tag->id}}" data-backgroundcolor="{{$tag->background_color}}" data-textcolor="{{$tag->text_color}}" @selected(in_array($tag->id, $short->tags->pluck("id")->toArray()))>{{$tag->name}}</option>
+							<option value="{{$tag->id}}" data-backgroundcolor="{{$tag->background_color}}" data-textcolor="{{$tag->text_color}}" @selected(in_array($tag->id, $short?->tags->pluck("id")->toArray() ?? []))>{{$tag->name}}</option>
 						@endforeach
 					</optgroup>
 				@endforeach

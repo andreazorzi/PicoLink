@@ -221,5 +221,6 @@ return [
         'tags' => 'tag',
         'background_color' => 'colore background',
         'text_color' => 'colore testo',
+        'language' => 'lingua',
     ],
 ];

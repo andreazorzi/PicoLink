@@ -7,8 +7,10 @@ use App\Models\Short;
 use App\Jobs\VisitCountry;
 use Illuminate\Http\Request;
 use chillerlan\QRCode\QRCode;
+use Illuminate\Validation\Rule;
 use chillerlan\QRCode\QROptions;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ShortController extends Controller
 {
@@ -108,5 +110,36 @@ class ShortController extends Controller
 
         //download file and delete it
         return response()->download($path)->deleteFileAfterSend(true);
+    }
+    
+    public function add_url_modal(Request $request){
+        return view('components.backoffice.modals.short-add-url', ["urls" => $request->urls ?? []]);
+    }
+    
+    public function add_url(Request $request){
+        $validator = Validator::make($request->all(), [
+            'language' => ['required', Rule::in(array_keys(__("languages")))],
+        ]);
+        
+        if($validator->fails()){
+            return view("components.alert", ["type" => "danger", "message" => $validator->errors()->first()]);
+        }
+        
+        return '
+            <div class="url-language col-12">
+                <div class="input-group">
+                    <span class="input-group-text p-0 overflow-hidden">
+                        <img class="url-flag" title="'.__("languages.{$request->language}").'" alt="'.__("languages.{$request->language}").'" src="'.asset("images/lang/{$request->language}.svg").'">
+                    </span>
+                    <input type="text" class="form-control" id="short-defult_url" name="urls['.$request->language.']">
+                    <span class="input-group-text px-2 bg-danger text-white overflow-hidden" role="button" onclick="$(this).closest(`.url-language`).remove();">
+                        <i class="fa-solid fa-times"></i>
+                    </span>
+                </div>
+            </div>
+            <script>
+                modal_2.hide();
+            </script>
+        ';
     }
 }

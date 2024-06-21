@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DateTime;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
@@ -197,6 +198,12 @@ class Short extends Model
         return $data;
     }
     
+    public function generateCode($length = 4){
+        do{
+            $this->code = Str::random($length);
+        }while(Short::where("code", $this->code)->exists());
+    }
+    
     public static function createFromRequest(Request $request):View{
         return (new self)->updateFromRequest($request, false);
     }
@@ -208,27 +215,37 @@ class Short extends Model
         }
         
         // // Custom key value for model without incrementing
-        // if(!$this->incrementing && !$update){
-        //     // $request->merge([self::getModelKey() => self::modelCustomKeyGeneration()]);
-        // }
+        if(!$update){
+            $this->generateCode();
+        }
         
         // Fill the model with the request
         $this->fill($request->all());
-        
-        $this->tags()->sync($request->tags);
         
         // If the model is dirty, save it
         if($this->isDirty()){
             $this->save();
         }
         
-        return view("components.alert", ["status" => "success", "message" => "Short salvato", "beforeshow" => 'modal.hide(); htmx.ajax("post", "'.route("short.get-details", $this).'", "#short-details");']);
+        if(!$update){
+            foreach($request->urls as $language => $url){
+                $this->urls()->create([
+                    "url" => $url,
+                    "language" => $language == "_default" ? null : $language
+                ]);
+            }
+        }
+        
+        $this->tags()->sync($request->tags);
+        
+        return view("components.alert", ["status" => "success", "message" => "Short salvato", "beforeshow" => 'modal.hide(); '.($update ? 'htmx.ajax("post", "'.route("short.get-details", $this).'", "#short-details");' : 'htmx.trigger("#page", "change");')]);
     }
     
     public static function validate(Request $request, bool $update):array{
         $validator = Validator::make($request->all(), [
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],
-            // self::getModelKey() => ['required', ($update ? "exists" : "unique").":App\Models\\".class_basename(new self).",".self::getModelKey()], // for non incrementing keys
+            "urls._default" => [!$update ? "required" : "prohibited", 'url'],
+            "urls.*" => [!$update ? "required" : "prohibited", 'url'],
 			"description" => ['required'],
 			"tags.*" => ['nullable', "exists:App\Models\Tag,id"],
 		]);

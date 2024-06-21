@@ -21,6 +21,8 @@ Route::prefix("backoffice")->group(function(){
 			Route::put('create', [ShortController::class, 'create'])->name('short.create');
 			Route::post('list', [SearchTableController::class, 'list'])->name('shorts.list')->defaults('model', new App\Models\Short);
 			Route::post('details/{short?}', [ShortController::class, 'details'])->name('short.details');
+			Route::post('add-url-modal', [ShortController::class, 'add_url_modal'])->name('short.add-url-modal');
+			Route::post('add-url', [ShortController::class, 'add_url'])->name('short.add-url');
 			
 			Route::prefix("{short}")->group(function(){
 				Route::put('update', [ShortController::class, 'update'])->name('short.update');

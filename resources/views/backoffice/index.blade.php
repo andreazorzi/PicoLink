@@ -31,10 +31,14 @@
         {{-- Menu --}}
         <x-backoffice.menu />
         
-        {{-- Scripts --}}
-        <x-backoffice.script></x-backoffice.script>
+        {{-- Modal --}}
+        <x-modal/>
+        <x-modal id="2"/>
         
         {{-- Ajax responses --}}
         <div id="request-response"></div>
+        
+        {{-- Scripts --}}
+        <x-backoffice.script></x-backoffice.script>
     </body>
 </html>
