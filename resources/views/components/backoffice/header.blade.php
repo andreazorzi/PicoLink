@@ -19,6 +19,10 @@
 		
 		<div id="user-actions">
 			<div class="row">
+				<a href="{{route("backoffice.change-password")}}" class="page-link col-md-12 p-3">
+					<i class="fa-solid fa-key me-2"></i>
+					{{__("auth.change_password")}}
+				</a>
 				<a href="{{route("web-auth.logout")}}" class="page-link col-md-12 p-3">
 					<i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
 					{{__("auth.logout")}}

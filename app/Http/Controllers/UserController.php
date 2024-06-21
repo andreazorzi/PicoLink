@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -43,7 +46,24 @@ class UserController extends Controller
     }
     
     // User change password
-    public function change_password(Request $request, PasswordReset $reset_link){
-        return $reset_link->changePassword($request);
+    public function change_password(Request $request){
+        $user = User::current();
+        
+        if(!Hash::check($request->current_password, $user->password)){
+            return view("components.alert", ["status" => "danger", "message" => __("auth.password", ["attribute" => __("validation.attributes.current_password")])]);
+        }
+        
+        $validator = Validator::make($request->all(), [
+            "password" => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols(), 'confirmed']
+        ]);
+        
+        if($validator->fails()){
+            return view("components.alert", ["status" => "danger", "message" => implode('\\n', $validator->errors()->all())]);
+        }
+        
+        $user->password = Hash::make($request->password);
+        $user->save();
+        
+        return view("components.alert", ["status" => "success", "message" => "Password aggiornata", "callback" => 'window.location.href = "'.route("backoffice.index").'";']);
     }
 }

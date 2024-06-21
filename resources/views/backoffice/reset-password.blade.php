@@ -1,3 +1,6 @@
+@php
+	$error ??= false;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,13 +28,13 @@
 							<h2 class="mb-4">Reset Password</h2>
 							@if (!$error)
 								<form>
+									<input type="password" id="current_password" name="current_password" class="form-control mb-3" placeholder="Password">
 									<input type="password" id="password" name="password" class="form-control mb-3" placeholder="Password">
 									<input type="password" id="password_confirmation" name="password_confirmation" class="form-control mb-3" placeholder="Conferma Password">
 									
 									<input type="hidden" name="token" value="{{request()->token}}">
 									
-									<button class="btn btn-primary w-100"
-										hx-put="{{route("user.change-password", [$reset_link])}}" hx-target="#request-result">
+									<button class="btn btn-primary w-100" hx-put="{{route("user.change-password")}}" hx-target="#request-result">
 										Aggiorna
 									</button>
 									

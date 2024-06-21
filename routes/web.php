@@ -31,6 +31,7 @@ Route::prefix('backoffice')->group(function () {
         });
 
         Route::view('tags', 'backoffice.tags')->name('backoffice.tags');
+        Route::view('change-password', 'backoffice.reset-password', ['change' => true])->name('backoffice.change-password');
     });
 });
 

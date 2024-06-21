@@ -13,6 +13,9 @@ use App\Http\Controllers\SearchTableController;
 
 Route::prefix("backoffice")->group(function(){
 	Route::middleware(['auth'])->group(function () {
+		// Change user password
+		Route::put('user/reset-password', [UserController::class, 'change_password'])->name('user.change-password');
+		
 		// Shorts
 		Route::prefix("shorts")->group(function(){
 			Route::put('create', [ShortController::class, 'create'])->name('short.create');
@@ -42,7 +45,3 @@ Route::prefix("backoffice")->group(function(){
 		});
 	});
 });
-
-// Change user password
-// Route::put('user/reset-password/{reset_link}', [UserController::class, 'change_password'])->name('user.change-password');
-// Route::post('user/send-reset-password/{user?}', [UserController::class, 'send_reset_password'])->name('user.send-reset-password-user');
