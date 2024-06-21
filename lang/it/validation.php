@@ -140,6 +140,10 @@ return [
     'uppercase'            => ':Attribute deve contenere solo caratteri maiuscoli.',
     'url'                  => 'Il formato del campo :attribute non è valido.',
     'uuid'                 => ':Attribute deve essere un UUID valido.',
+    
+    // Custom validation rules
+    'slug' => ':Attribute deve contenere solo lettere, numeri e trattini.',
+    
     'attributes'           => [
         'address'                  => 'indirizzo',
         'age'                      => 'età',
@@ -222,5 +226,6 @@ return [
         'background_color' => 'colore background',
         'text_color' => 'colore testo',
         'language' => 'lingua',
+        'custom_code' => 'codice personalizzato',
     ],
 ];

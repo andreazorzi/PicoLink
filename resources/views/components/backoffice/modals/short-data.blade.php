@@ -30,10 +30,14 @@
 					{{__("app.pages.short.add_language")}}
 				</button>
 			</div>
+			<div class="col-12">
+				<label>{{ucfirst(__('validation.attributes.custom_code'))}}</label>
+				<input type="text" class="form-control" id="short-custom_code" name="custom_code" maxlength="50"></input>
+			</div>
 		@endempty
 		<div class="col-12">
 			<label>{{ucfirst(__('validation.attributes.description'))}}</label>
-			<textarea class="form-control" id="short-description" name="description" rows="3">{{$short->description ?? ""}}</textarea>
+			<textarea class="form-control" id="short-description" name="description" rows="3" maxlength="255">{{$short->description ?? ""}}</textarea>
 		</div>
 		<div class="col-12">
 			<label>{{ucfirst(__('validation.attributes.tags'))}}</label>

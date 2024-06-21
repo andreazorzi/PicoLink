@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use DateTime;
+use App\Rules\Slug;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Schema;
@@ -200,8 +202,10 @@ class Short extends Model
     
     public function generateCode($length = 4){
         do{
-            $this->code = Str::random($length);
-        }while(Short::where("code", $this->code)->exists());
+            $code = Str::random($length);
+        }while(Short::where("code", $code)->exists());
+        
+        return $code;
     }
     
     public static function createFromRequest(Request $request):View{
@@ -216,7 +220,7 @@ class Short extends Model
         
         // // Custom key value for model without incrementing
         if(!$update){
-            $this->generateCode();
+            $this->code = $request->custom_code ?? $this->generateCode();
         }
         
         // Fill the model with the request
@@ -246,9 +250,10 @@ class Short extends Model
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],
             "urls._default" => [!$update ? "required" : "prohibited", 'url'],
             "urls.*" => [!$update ? "required" : "prohibited", 'url'],
-			"description" => ['required'],
+			"custom_code" => ['nullable', "unique:App\Models\Short,code", 'max:50', new Slug],
+			"description" => ['required', 'max:255'],
 			"tags.*" => ['nullable', "exists:App\Models\Tag,id"],
-		]);
+        ]);
         
         if ($validator->fails()) {
 			return ["status" => "danger", "message" => implode("\\n", $validator->errors()->all())];
