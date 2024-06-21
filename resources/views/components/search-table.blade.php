@@ -34,6 +34,15 @@
 					$advanced_values[] = Help::convert_date($dates[0]);
 					$advanced_values[] = Help::convert_date($dates[1] ?? $dates[0]);
 				}
+				else if(($field["advanced-type"] ?? null) == "in-array"){
+					$multi_filter = [];
+					
+					foreach($advanced[$key] as $value){
+						$multi_filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') LIKE '%".$value."%'";
+					}
+					
+					$filter[] = "(".implode(" AND ", $multi_filter).")";
+				}
 				else{
 					$multi_filter = [];
 					
@@ -59,10 +68,11 @@
 	// Perform model search
 	$search = !empty($filter) ? $model::whereRaw("(".implode(Help::empty_dictionary($advanced) ? " OR " : " AND ", $filter).")", !Help::empty_dictionary($advanced) ? $advanced_values : $filter_values) : $model::query();
 	
-	// if(!empty($advanced_values)){
-	// 	// $search->dd();
-	// 	// dd(Help::empty_dictionary($advanced));
-	// }
+	if(!empty($advanced)){
+		// dd($advanced);
+		// $search->dd();
+		// dd(Help::empty_dictionary($advanced));
+	}
 	
 	// Check model filter
 	foreach($modelfilter as $key => $value){

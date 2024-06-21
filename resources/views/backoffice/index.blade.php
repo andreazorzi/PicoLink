@@ -15,7 +15,7 @@
             <x-backoffice.title :title="config('app.name')" />
             
             {{-- Search Table --}}
-            {{-- <x-search-table-filters.users /> --}}
+            <x-search-table-filters.shorts />
             <x-search-table :model="new App\Models\Short()"></x-search-table>
             
             <style>

@@ -55,6 +55,7 @@ return [
             'meta_description' => 'Questa è la pagina delle tag',
             
             'add_tag' => 'Aggiungi Tag',
+            'advanced_search' => 'Ricerca Avanzata',
         ],
         'maintenance' => [
             'meta_title' => 'Manutenzione',

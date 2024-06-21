@@ -29,7 +29,10 @@ class Short extends Model
                 "filter" => true,
             ],
             "tags" => [
+                "filter" => true,
                 "custom-value" => "getTagsText",
+                "custom-filter" => "(SELECT GROUP_CONCAT(st.tag_id SEPARATOR ', ') FROM short_tag st WHERE st.short_id = shorts.id)",
+                "advanced-type" => "in-array"
             ],
             "visits" => [
                 "custom-value" => "getVisits",
