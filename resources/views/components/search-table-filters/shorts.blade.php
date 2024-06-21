@@ -10,7 +10,7 @@
 				{{__("app.pages.tags.advanced_search")}}
 			</button>
 		</div>
-		<div id="advanced-search" class="row gy-2 d-none1">
+		<div id="advanced-search" class="row gy-2 d-none">
 			<div class="col-md-4">
 				<label>{{ucwords(__("validation.attributes.code"))}}</label>
 				<select class="selectize selectize" multiple name="advanced_search[code][]">
@@ -37,14 +37,6 @@
 				<label>{{ucwords(__("validation.attributes.description"))}}</label>
 				<input type="text" class="form-control" name="advanced_search[description]" onkeyup="htmx.trigger('#page', 'change');">
 			</div>
-			{{-- <div class="col-md-4">
-				<label>Tipo</label>
-				<select class="selectize" multiple name="advanced_search[type][]">
-					@foreach (User::groupBy("type")->pluck("type")->toArray() as $type)
-						<option>{{$type}}</option>
-					@endforeach
-				</select>
-			</div> --}}
 		</div>
 	</div>
 </div>
