@@ -49,6 +49,7 @@
 	$(".selectize").selectize({
 		plugins: ["remove_button"],
 		sortField: 'text',
+		lockOptgroupOrder: true,
 		render: {
 			item: function (item, escape) {
 				return `

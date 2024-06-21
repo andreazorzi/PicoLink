@@ -27,6 +27,7 @@ class Short extends Model
             ],
             "description" => [
                 "filter" => true,
+                "advanced-type" => "like"
             ],
             "tags" => [
                 "filter" => true,

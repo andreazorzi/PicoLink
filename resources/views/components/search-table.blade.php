@@ -43,6 +43,9 @@
 					
 					$filter[] = "(".implode(" AND ", $multi_filter).")";
 				}
+				else if(($field["advanced-type"] ?? null) == "like"){
+					$filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') LIKE '%".$advanced[$key]."%'";
+				}
 				else{
 					$multi_filter = [];
 					

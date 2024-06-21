@@ -1,4 +1,5 @@
 @php
+	use App\Models\Short;
 	use App\Models\TagCategory;
 @endphp
 <div class="row justify-content-center">
@@ -10,6 +11,14 @@
 			</button>
 		</div>
 		<div id="advanced-search" class="row gy-2 d-none1">
+			<div class="col-md-4">
+				<label>{{ucwords(__("validation.attributes.code"))}}</label>
+				<select class="selectize selectize" multiple name="advanced_search[code][]">
+					@foreach (Short::orderBy("code")->get() as $short)
+						<option>{{$short->code}}</option>
+					@endforeach
+				</select>
+			</div>
 			<div class="col-md-4">
 				<label>{{ucwords(__("validation.attributes.tags"))}}</label>
 				<select class="selectize selectize-tag" multiple name="advanced_search[tags][]">
@@ -23,6 +32,10 @@
 						</optgroup>
 					@endforeach
 				</select>
+			</div>
+			<div class="col-md-4">
+				<label>{{ucwords(__("validation.attributes.description"))}}</label>
+				<input type="text" class="form-control" name="advanced_search[description]" onkeyup="htmx.trigger('#page', 'change');">
 			</div>
 			{{-- <div class="col-md-4">
 				<label>Tipo</label>
@@ -49,6 +62,7 @@
 		$(".selectize-tag").selectize({
 			plugins: ["remove_button"],
 			sortField: 'text',
+			lockOptgroupOrder: true,
 			render: {
 				item: function (item, escape) {
 					return `
