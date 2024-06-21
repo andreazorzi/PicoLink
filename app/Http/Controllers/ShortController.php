@@ -16,6 +16,11 @@ class ShortController extends Controller
 		return view('components.backoffice.modals.short-data', ["short" => $short]);
     }
     
+    // get details
+    public function get_details(Request $request, Short $short){
+        return Help::fragment("backoffice.short", "short-details", ["short" => $short]);
+    }
+    
     // Create short
     public function create(Request $request){
         return Short::createFromRequest($request);

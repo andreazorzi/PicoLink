@@ -104,7 +104,7 @@ class Short extends Model
     public function getTagsText(){
         $tags = '';
         
-        foreach($this->tags as $tag){
+        foreach($this->tags()->orderBy("name")->get() as $tag){
             $tags .= view("components.tag", ["tag" => $tag])->render();
         }
         
@@ -218,7 +218,7 @@ class Short extends Model
             $this->save();
         }
         
-        return view("components.alert", ["status" => "success", "message" => "Dipinto salvato", "callback" => 'modal.hide(); htmx.trigger("#page", "change");']);
+        return view("components.alert", ["status" => "success", "message" => "Short salvato", "beforeshow" => 'modal.hide(); htmx.ajax("post", "'.route("short.get-details", $this).'", "#short-details");']);
     }
     
     public static function validate(Request $request, bool $update):array{

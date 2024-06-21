@@ -16,29 +16,31 @@
                 <div class="col-md-8">
                     <div class="row mt-3 g-3">
                         <div class="col-md-12">
-                            <div class="row justify-content-end g-3">
-                                <div class="col">
-                                    <h2>
-                                        {{$short->code}}
-                                        <i class="fa-solid fa-pen-to-square fs-5 align-middle ms-2" role="button"
-                                            hx-post="{{route("short.details", [$short])}}" hx-target="#modal .modal-content"></i>
-                                    </h2>
-                                    <span class="fs-5 text-muted">
-                                        {{$short->description}}
-                                    </span>
-                                    <div id="tags" class="mt-2">
-                                        @foreach ($short->tags as $tag)
-                                            <x-tag :tag="$tag" />
-                                        @endforeach
+                            <div id="short-details" class="row justify-content-end g-3">
+                                @fragment("short-details")
+                                    <div class="col">
+                                        <h2>
+                                            {{$short->code}}
+                                            <i class="fa-solid fa-pen-to-square fs-5 align-middle ms-2" role="button"
+                                                hx-post="{{route("short.details", [$short])}}" hx-target="#modal .modal-content"></i>
+                                        </h2>
+                                        <span class="fs-5 text-muted">
+                                            {{$short->description}}
+                                        </span>
+                                        <div id="tags" class="mt-2">
+                                            @foreach ($short->tags()->orderBy("name")->get() as $tag)
+                                                <x-tag :tag="$tag" />
+                                            @endforeach
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-md-auto align-self-end text-end">
-                                    <button class="btn btn-primary btn-sm"
-                                        hx-post="{{route("short.share", [$short])}}" hx-target="#modal .modal-content">
-                                        <i class="fa-solid fa-share"></i>
-                                        {{__("app.pages.short.share")}}
-                                    </button>
-                                </div>
+                                    <div class="col-12 col-md-auto align-self-end text-end">
+                                        <button class="btn btn-primary btn-sm"
+                                            hx-post="{{route("short.share", [$short])}}" hx-target="#modal .modal-content">
+                                            <i class="fa-solid fa-share"></i>
+                                            {{__("app.pages.short.share")}}
+                                        </button>
+                                    </div>
+                                @endfragment
                             </div>
                         </div>
                         <div class="col-md-12">
