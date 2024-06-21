@@ -28,14 +28,14 @@ class Short extends Model
             "description" => [
                 "filter" => true,
             ],
+            "tags" => [
+                "custom-value" => "getTagsText",
+            ],
             "visits" => [
                 "custom-value" => "getVisits",
             ],
             "created_at" => [
-                "sort" => "desc",
-                "custom-value" => "getCreatedAtText",
-            ],
-            "created_at" => [
+                "hidden" => true,
                 "sort" => "desc",
                 "custom-value" => "getCreatedAtText",
             ],
@@ -99,6 +99,16 @@ class Short extends Model
     
     public function getVisits(){
         return $this->visits()->count();
+    }
+    
+    public function getTagsText(){
+        $tags = '';
+        
+        foreach($this->tags as $tag){
+            $tags .= view("components.tag", ["tag" => $tag])->render();
+        }
+        
+        return $tags;
     }
     
     public function getTimeline($from = null, $to = null){
