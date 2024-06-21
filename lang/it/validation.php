@@ -218,6 +218,7 @@ return [
         'code' => 'codice',
         'visits' => 'visite',
         'tag_category' => 'categoria tag',
+        'tags' => 'tag',
         'background_color' => 'colore background',
         'text_color' => 'colore testo',
     ],

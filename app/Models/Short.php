@@ -65,6 +65,10 @@ class Short extends Model
         return $this->hasMany(Visit::class);
     }
     
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
+    
     public function getUrl($language = null){
         $url = $this->urls()->where("language", $language)->first();
         
@@ -197,6 +201,8 @@ class Short extends Model
         // Fill the model with the request
         $this->fill($request->all());
         
+        $this->tags()->sync($request->tags);
+        
         // If the model is dirty, save it
         if($this->isDirty()){
             $this->save();
@@ -209,7 +215,8 @@ class Short extends Model
         $validator = Validator::make($request->all(), [
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],
             // self::getModelKey() => ['required', ($update ? "exists" : "unique").":App\Models\\".class_basename(new self).",".self::getModelKey()], // for non incrementing keys
-			"description" => ['required']
+			"description" => ['required'],
+			"tags.*" => ['nullable', "exists:App\Models\Tag,id"],
 		]);
         
         if ($validator->fails()) {

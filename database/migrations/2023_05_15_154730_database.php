@@ -86,6 +86,16 @@ return new class extends Migration
             
             $table->foreign('tag_category_id')->references('id')->on('tag_categories')->onUpdate('cascade')->onDelete('cascade');
         });
+        
+        // Short Tags
+        Schema::create('short_tag', function (Blueprint $table) {
+            $table->integer('short_id');
+            $table->integer('tag_id');
+            
+            $table->primary(['short_id', 'tag_id']);
+            $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**

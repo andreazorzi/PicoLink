@@ -1,5 +1,5 @@
 @php
-	
+	use App\Models\TagCategory;	
 @endphp
 <div class="modal-header">
 	<h1 class="modal-title fs-5" id="modalLabel">Short - {{$short->code}}</h1>
@@ -10,6 +10,18 @@
 		<div class="col-12 mb-3">
 			<label>{{ucfirst(__('validation.attributes.description'))}}</label>
 			<textarea class="form-control" id="short-description" name="description" rows="3">{{$short->description}}</textarea>
+		</div>
+		<div class="col-12 mb-3">
+			<label>{{ucfirst(__('validation.attributes.tags'))}}</label>
+			<select class="selectize" id="short-tags" name="tags[]" multiple>
+				@foreach (TagCategory::orderBy("name")->get() as $category)
+					<optgroup label="{{$category->name}}">
+						@foreach ($category->tags as $tag)
+							<option value="{{$tag->id}}" data-backgroundcolor="{{$tag->background_color}}" data-textcolor="{{$tag->text_color}}" @selected(in_array($tag->id, $short->tags->pluck("id")->toArray()))>{{$tag->name}}</option>
+						@endforeach
+					</optgroup>
+				@endforeach
+			</select>
 		</div>
 	</div>
 </div>
@@ -34,5 +46,19 @@
 </div>
 
 <script>
+	$(".selectize").selectize({
+		plugins: ["remove_button"],
+		sortField: 'text',
+		render: {
+			item: function (item, escape) {
+				return `
+					<div class="me-2" style="color: `+item.textcolor+`; background-color: `+item.backgroundcolor+`; --text-color: `+item.textcolor+`;">
+						`+item.text+`
+					</div>
+				`;
+			},
+		}
+	});
+	
 	modal.show();
 </script>

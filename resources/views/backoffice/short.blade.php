@@ -19,13 +19,18 @@
                             <div class="row justify-content-end g-3">
                                 <div class="col">
                                     <h2>
-                                        <i class="fa-solid fa-pen-to-square fs-3" role="button"
-                                            hx-post="{{route("short.details", [$short])}}" hx-target="#modal .modal-content"></i>
                                         {{$short->code}}
+                                        <i class="fa-solid fa-pen-to-square fs-5 align-middle ms-2" role="button"
+                                            hx-post="{{route("short.details", [$short])}}" hx-target="#modal .modal-content"></i>
                                     </h2>
                                     <span class="fs-5 text-muted">
                                         {{$short->description}}
                                     </span>
+                                    <div id="tags" class="mt-2">
+                                        @foreach ($short->tags as $tag)
+                                            <x-tag :tag="$tag" />
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-auto align-self-end text-end">
                                     <button class="btn btn-primary btn-sm"

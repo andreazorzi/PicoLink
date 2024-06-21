@@ -279,3 +279,19 @@ body{
 .url-flag{
 	width: 40px;
 }
+
+.selectize{
+	.optgroup{
+		.optgroup-header{
+			font-weight: bold;
+		}
+		
+		.option{
+			padding-left: 25px;
+		}
+	}
+	
+	.remove{
+		color: inherit;
+	}
+}
