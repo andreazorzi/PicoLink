@@ -27,7 +27,7 @@
 				<img src="{{ $src ?? asset("images/error.webp") }}" class="w-100 h-100 object-fit-cover" style="filter: brightness(0.5);">
 				<div class="centered text-center">
 					<h1>{{ $error_code }}</h1>
-					<span class="fs-2">{{__('http-statuses.'.$error_code)}}</span>
+					<span class="fs-2">{{$error_message ?? __('http-statuses.'.$error_code)}}</span>
 					<br>
 					@if ($error_code != 503)
 						<a href="/" class="btn fs-5 btn-outline-info btn-lg mt-3">

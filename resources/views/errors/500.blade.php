@@ -1,1 +1,1 @@
-@include("errors.error", ["error_code" => $exception->getStatusCode()])
+@include("errors.error", ["error_code" => $exception->getStatusCode(), "error_message" => $exception->getMessage() ?? null])
