@@ -5,7 +5,7 @@
 <html lang="{{$lang}}">
 	<x-head :title="config('app.name')"/>
     
-    <body class="container-fluid">
+    <body class="container-fluid" style="background-color: #c1ebff;">
         {{-- Header --}}
         {{-- <header class="row fixed-top pt-2 pb-4 px-2" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%); color: #ffffff; border-bottom: 0px solid #d3d3d3;">
 			<div class="col py-2 px-3 align-self-center">
