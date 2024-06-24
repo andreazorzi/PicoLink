@@ -200,6 +200,24 @@ class Short extends Model
         return $data;
     }
     
+    public function getMapsTable($from = null, $to = null){
+        $from = $from ?? date("Y-m-d", strtotime("-7 days"));
+        $to = ($to ?? date("Y-m-d"))." 23:59:59";
+        
+        $html = '';
+        
+        foreach(Visit::select(DB::raw("visits.country, COUNT(*) AS count"))->where("short_id", $this->id)->whereBetween("created_at", [$from, $to])->orderBy("count", "desc")->groupBy("country")->get() as $visit){
+            $html .= '
+                <tr>
+                    <td>'.config("countries.{$visit->country}").'</td>
+                    <td class="text-end">'.$visit->count.'</td>
+                </tr>
+            ';
+        }
+        
+        return $html;
+    }
+    
     public static function generateCode($code = null, $length = 4){
         if(!is_null($code) && !Short::where("code", $code)->exists()){
             return $code;

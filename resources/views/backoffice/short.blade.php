@@ -148,6 +148,19 @@
                                         maps_data = @json($short->getMaps($from, $to));
                                     </script>
                                 </div>
+                                <div class="card-body text-center">
+                                    <table class="table table-striped w-100 t-0 text-start">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>{{ucwords(__("validation.attributes.country"))}}</th>
+                                                <th class="text-end">{{ucwords(__("validation.attributes.visits"))}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="maps-table">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -321,6 +334,8 @@
                         // maps data
                         maps_data = @json($short->getMaps($from, $to));
                         drawRegionsMap();
+                        
+                        $("#maps-table").html(`{!!$short->getMapsTable($from, $to)!!}`);
                     @endif
                 </script>
             @endfragment
