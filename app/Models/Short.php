@@ -270,8 +270,8 @@ class Short extends Model
     public static function validate(Request $request, bool $update):array{
         $validator = Validator::make($request->all(), [
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],
-            "urls._default" => [!$update ? "required" : "prohibited", 'url'],
-            "urls.*" => [!$update ? "required" : "prohibited", 'url'],
+            "urls._default" => [!$update ? "required" : "prohibited", 'url:http,https'],
+            "urls.*" => [!$update ? "required" : "prohibited", 'url:http,https'],
 			"custom_code" => ['nullable', "unique:App\Models\Short,code", 'max:50', new Slug],
 			"description" => ['required', 'max:255'],
 			"tags.*" => ['nullable', "exists:App\Models\Tag,id"],
