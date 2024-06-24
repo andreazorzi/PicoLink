@@ -49,6 +49,7 @@ return [
             'devices' => 'Dispositivi',
             'referrers' => 'Referral',
             'map' => 'Mappa',
+            'language_urls' => 'Url in lingua',
             'add_language' => 'Aggiungi Lingua',
         ],
         'tags' => [

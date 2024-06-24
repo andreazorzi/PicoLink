@@ -142,7 +142,7 @@ return [
     'uuid'                 => ':Attribute deve essere un UUID valido.',
     
     // Custom validation rules
-    'slug' => ':Attribute deve contenere solo lettere, numeri e trattini.',
+    'slug' => ':Attribute non può contenere spazi.',
     
     'attributes'           => [
         'address'                  => 'indirizzo',
@@ -227,5 +227,8 @@ return [
         'text_color' => 'colore testo',
         'language' => 'lingua',
         'custom_code' => 'codice personalizzato',
+        'urls' => [
+            '_default' => 'url di default',
+        ],
     ],
 ];

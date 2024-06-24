@@ -15,7 +15,7 @@ class Slug implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if(preg_match('/^[a-zA-Z1-9]+$/i', $value) == false) {
+        if(preg_match('/[\s]+/i', $value) > 0) {
             $fail(__('validation.slug'));
         }
     }

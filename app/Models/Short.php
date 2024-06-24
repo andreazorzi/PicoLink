@@ -97,7 +97,7 @@ class Short extends Model
     }
     
     public function getLink(){
-        return route("short", $this->code);
+        return config("app.url")."/".$this->code;
     }
     
     public function getCreatedAtText(){
@@ -200,7 +200,11 @@ class Short extends Model
         return $data;
     }
     
-    public function generateCode($length = 4){
+    public static function generateCode($code = null, $length = 4){
+        if(!is_null($code) && !Short::where("code", $code)->exists()){
+            return $code;
+        }
+        
         do{
             $code = Str::random($length);
         }while(Short::where("code", $code)->exists());
@@ -220,7 +224,7 @@ class Short extends Model
         
         // // Custom key value for model without incrementing
         if(!$update){
-            $this->code = $request->custom_code ?? $this->generateCode();
+            $request->merge(["code" => $request->custom_code ?? self::generateCode($request->code ?? null)]);
         }
         
         // Fill the model with the request

@@ -1,5 +1,6 @@
 @php
-	use App\Models\TagCategory;	
+	use App\Models\Short;
+	use App\Models\TagCategory;
 @endphp
 <div class="modal-header">
 	<h1 class="modal-title fs-5" id="modalLabel">Short @isset($short) - {{$short->code}} @endisset</h1>
@@ -11,7 +12,7 @@
 			<div class="col-md-12">
 				<div id="short-urls" class="row g-3">
 					<div class="col-12">
-						<label>Default Url</label>
+						<label>{{ucwords(__('validation.attributes.urls._default'))}}</label>
 						<div class="input-group">
 							<span class="input-group-text p-0 overflow-hidden">
 								<img class="url-flag" title="Default" alt="Default" src="{{asset("images/lang/default.svg")}}">
@@ -20,7 +21,7 @@
 						</div>
 					</div>
 					<div class="col-12">
-						<label>Url in lingua</label>s
+						<label>{{__("app.pages.short.language_urls")}}</label>
 					</div>
 				</div>
 			</div>
@@ -32,7 +33,16 @@
 			</div>
 			<div class="col-12">
 				<label>{{ucfirst(__('validation.attributes.custom_code'))}}</label>
-				<input type="text" class="form-control" id="short-custom_code" name="custom_code" maxlength="50"></input>
+				<div class="input-group">
+					<span class="input-group-text">
+						{{config("app.url")}}
+					</span>
+					@php
+						$code = Short::generateCode();
+					@endphp
+					<input type="text" class="form-control" id="short-custom_code" name="custom_code" maxlength="50" placeholder="{{$code}}"></input>
+					<input type="hidden" name="code" value="{{$code}}"></input>
+				</div>
 			</div>
 		@endempty
 		<div class="col-12">
