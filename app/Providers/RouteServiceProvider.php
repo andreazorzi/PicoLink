@@ -27,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('api', 'api-token')
+            Route::middleware('api', 'api-token', 'init')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
                 
@@ -35,11 +35,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('auth')
                 ->group(base_path('routes/auth.php'));
             
-            Route::middleware('web', 'ajax')
+            Route::middleware('web', 'ajax', 'init')
                 ->prefix('requests')
                 ->group(base_path('routes/requests.php'));
 
-            Route::middleware('web')
+            Route::middleware('web', 'init')
                 ->group(base_path('routes/web.php'));
         });
     }

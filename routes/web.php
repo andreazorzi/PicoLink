@@ -52,3 +52,5 @@ Route::prefix('{short}')->group(function () {
     Route::get('/info', [ShortController::class, 'short_info']);
     Route::get('/test', [ShortController::class, 'short_test']);
 });
+
+Route::view('/', 'index')->name('index');

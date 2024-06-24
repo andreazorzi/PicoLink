@@ -10,6 +10,10 @@ body{
 		background-color: #c1ebff;
 		border-bottom: 1px solid #d3d3d3;
 		
+		.logo{
+			max-height: 60px;
+		}
+		
 		#menu-button{
 			cursor: pointer;
 		}

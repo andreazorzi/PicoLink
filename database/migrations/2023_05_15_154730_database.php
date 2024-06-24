@@ -103,6 +103,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('short_tag');
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('tag_categories');
+        Schema::dropIfExists('visits');
+        Schema::dropIfExists('urls');
+        Schema::dropIfExists('shorts');
+        Schema::dropIfExists('password_resets');
         Schema::dropIfExists('users');
     }
 };
