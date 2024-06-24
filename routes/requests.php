@@ -23,6 +23,7 @@ Route::prefix("backoffice")->group(function(){
 			Route::post('details/{short?}', [ShortController::class, 'details'])->name('short.details');
 			Route::post('add-url-modal', [ShortController::class, 'add_url_modal'])->name('short.add-url-modal');
 			Route::post('add-url', [ShortController::class, 'add_url'])->name('short.add-url');
+			Route::put('upload-csv', [ShortController::class, 'upload_csv'])->name('short.upload-csv');
 			
 			Route::prefix("{short}")->group(function(){
 				Route::put('update', [ShortController::class, 'update'])->name('short.update');

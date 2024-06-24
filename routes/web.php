@@ -31,7 +31,12 @@ Route::prefix('backoffice')->group(function () {
         });
 
         Route::view('tags', 'backoffice.tags')->name('backoffice.tags');
+        Route::view('upload-csv', 'backoffice.upload-csv')->name('backoffice.upload-csv');
         Route::view('change-password', 'backoffice.reset-password', ['change' => true])->name('backoffice.change-password');
+        
+        Route::get('csv-template', function(){
+            return response()->download("template/short_import.csv");
+        })->name('backoffice.csv-template');
     });
 });
 

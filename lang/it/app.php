@@ -14,6 +14,11 @@ return [
             'color' => '#10B9C4',
             'icon' => 'fa-tags',
         ],
+        'upload-csv' => [
+            'title' => 'Carica CSV',
+            'color' => '#10B9C4',
+            'icon' => 'fa-file-csv',
+        ],
         // 'users' => [
         //     'title' => 'Gestione Utenti',
         //     'color' => '#10B9C4',
@@ -58,6 +63,17 @@ return [
             
             'add_tag' => 'Aggiungi Tag',
             'advanced_search' => 'Ricerca Avanzata',
+        ],
+        'upload-csv' => [
+            'meta_title' => 'Carica CSV',
+            
+            'csv_file' => 'File CSV',
+            'template' => 'Template CSV',
+            'upload' => 'Carica',
+            'upload_statuses' => [
+                'success' => 'Tutti gli short sono stati creati',
+                'warning' => 'Short creati, :errors codici erano già presenti: :codes'
+            ]
         ],
         'maintenance' => [
             'meta_title' => 'Manutenzione',

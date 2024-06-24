@@ -122,7 +122,7 @@ class ShortController extends Controller
         ]);
         
         if($validator->fails()){
-            return view("components.alert", ["type" => "danger", "message" => $validator->errors()->first()]);
+            return view("components.alert", ["status" => "danger", "message" => $validator->errors()->first()]);
         }
         
         return '
@@ -141,5 +141,48 @@ class ShortController extends Controller
                 modal_2.hide();
             </script>
         ';
+    }
+    
+    public function upload_csv(Request $request){
+        $validator = Validator::make($request->all(), [
+            'csv' => ['required', 'file', 'mimes:csv,txt', 'max:2048'],
+        ]);
+        
+        if($validator->fails()){
+            return view("components.alert", ["status" => "danger", "message" => $validator->errors()->first()]);
+        }
+        
+        $header = [];
+        $errors = [];
+        $csv = fopen($request->csv, "r");
+        
+        while (($data = fgetcsv($csv, 0, ";")) !== FALSE) {
+            if(count($header) < 1){
+                $header = array_flip($data);
+                continue;
+            }
+            
+            if(Short::where('code', $data[$header['code']])->exists()){
+                $errors[] = $data[$header['code']];
+                continue;
+            }
+            
+            $short = Short::create([
+                'code' => $data[$header['code']],
+                'description' => $data[$header['url']],
+            ]);
+            
+            $short->urls()->create([
+                'url' => $data[$header['url']],
+            ]);
+        }
+        
+        return view("components.alert", ["status" => count($errors) > 0 ? "warning" : "success", "duration" => count($errors) > 0 ? -1 : 3000, "message" => __("app.pages.upload-csv.upload_statuses.".(count($errors) > 0 ? "warning" : "success"), ["errors" => count($errors), "codes" => implode(", ", $errors)]), "beforeshow" => '$("form")[0].reset()']);
+        
+        // $file = $request->file('file');
+        // $contents = $file->get();
+        // $lines = explode("\n", $contents);
+        
+        // return view("components.backoffice.modals.short-upload-csv", ["lines" => $lines]);
     }
 }
