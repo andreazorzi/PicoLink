@@ -24,10 +24,10 @@ services:
         environment:
             APP_ENV: 'production'
             APP_DEBUG: 'false'
-            App_url: 'https://yourdomain.com'
+            APP_URL: 'https://yourdomain.com'
             DB_DATABASE: 'laravel'
-            DB_USERNAME: 'sail'
-            DB_PASSWORD: 'password'
+            DB_USERNAME: 'picolink'
+            DB_PASSWORD: '_db_password_'
             
             ADMIN_USERNAME: 'admin'
             ADMIN_PASSWORD: 'password'
@@ -45,13 +45,13 @@ services:
             MYSQL_ROOT_PASSWORD: '_root_password_'
             MYSQL_ROOT_HOST: '%'
             MYSQL_DATABASE: 'laravel'
-            MYSQL_USER: '_db_username_'
+            MYSQL_USER: 'picolink'
             MYSQL_PASSWORD: '_db_password_'
         volumes:
             - 'pathtodocker/picolink/mysql:/var/lib/mysql'
         networks:
             - sail
 networks:
-	sail:
-		driver: bridge
+    sail:
+        driver: bridge
 ```
