@@ -32,10 +32,6 @@ class VisitCountry implements ShouldQueue
      */
     public function handle(): void
     {
-        $response = Http::get('http://ip-api.com/json/'.$this->ip)->json();
-        
-        if(($response['status'] ?? '') == 'success' && !empty($response['countryCode'])){
-            $this->visit->update(['country' => Str::lower($response['countryCode'])]);
-        }
+        $this->visit->getCountry($this->ip);
     }
 }

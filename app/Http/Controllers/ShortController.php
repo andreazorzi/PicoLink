@@ -53,7 +53,7 @@ class ShortController extends Controller
                 'referrer' => $request_data['referrer'],
             ]);
             
-            VisitCountry::dispatch($visit, $request_data['ip']);
+            config("app.env") == 'local' ? $visit->getCountry($request_data['ip']) : VisitCountry::dispatch($visit, $request_data['ip']);;
         }
         
         if(config('app.env') == 'local'){
