@@ -1,18 +1,18 @@
-<div style="text-align: center">
-	<img src="https://raw.githubusercontent.com/andreazorzi/PicoLink/development/public/images/logo.png?token=GHSAT0AAAAAACOQRLWVBGNLVTBNBDQUSSFSZTZQNJQ" alt="PicoLink" style="max-width: 500px;"/>
-</div>
+<p align="center">
+	<img src="https://github.com/andreazorzi/PicoLink/blob/development/public/images/logo.png?raw=true" alt="PicoLink" width="400"/>
+</p>
 <br>
 PicoLink is not the regular url shortner. It provide super power to your links.
 
-## Super Powers
+## ⚡️ Super Powers
 - Custom short link code, even with emojis: https://yoursite.com/🚀
 - Customized tags and advanced search to find your shorts faster 🔎
 - Quick sharing and qrcode creation 💻
 - Complete reports with visits by day, devices, referrers and countries 📊
-- Multilingual short link with automatic redirect based on client browser language ✨
+- Multilingual short link with automatic redirect based on client browser language 💥
 
-## How to install
-### Docker File
+## 🛠️ How to install
+### 🐳 Docker File
 ```
 services:
     server:
