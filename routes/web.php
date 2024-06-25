@@ -28,7 +28,10 @@ Route::prefix('backoffice')->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::prefix('short/{short:code}')->group(function(){
             Route::get('/', [ShortController::class, 'short_preview'])->name('backoffice.short');
-            Route::get('/qrcode', [ImageController::class, 'qrcode'])->name('backoffice.short.qrcode');
+            Route::prefix('qrcode')->group(function(){
+                Route::get('', [ImageController::class, 'qrcode'])->name('backoffice.short.qrcode');
+                Route::get('logo', [ImageController::class, 'qrcode'])->defaults('logo', true)->name('backoffice.short.qrcode-logo');
+            });
         });
 
         Route::view('tags', 'backoffice.tags')->name('backoffice.tags');

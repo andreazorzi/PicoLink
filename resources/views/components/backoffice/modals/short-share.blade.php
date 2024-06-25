@@ -12,10 +12,16 @@
 		<div class="col-md-5">
 			<img src="{{route("backoffice.short.qrcode", [$short])}}" class="logo w-100">
 			
-			<a href="{{route("backoffice.short.qrcode", [$short])}}" download="{{$short->code}}" class="btn btn-primary btn-sm w-100 mt-3">
-				<i class="fa-solid fa-qrcode me-2"></i>
-				Download
-			</a>
+			<div class="dropdown">
+				<button class="btn btn-primary btn-sm dropdown-toggle w-100 mt-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fa-solid fa-qrcode me-2"></i>
+					Download
+				</button>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{{route("backoffice.short.qrcode", [$short])}}" download="{{$short->code}}">QRCode</a></li>
+					<li><a class="dropdown-item" href="{{route("backoffice.short.qrcode-logo", [$short])}}" download="{{$short->code}}_logo">QRCode + Logo Space</a></li>
+				</ul>
+			</div>
 			
 			<button id="copy-link" class="btn btn-success btn-sm w-100 mt-2" data-link="{{$short->getLink()}}">
 				<i class="fa-solid fa-clipboard me-2"></i>

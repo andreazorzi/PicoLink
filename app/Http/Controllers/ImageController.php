@@ -47,19 +47,33 @@ class ImageController extends Controller
         //     echo $qrOutputInterface->dump(null, $logo);
         // }
         
+        // // SVG LOGO
+        // if(!is_null($logo)){
+        //     $options = new SVGWithLogoOptions;
+        //     $options->quietzoneSize = 0;
+        //     $options->outputBase64        = false;
+        //     $options->svgLogo             = $logo;
+        //     $options->svgLogoScale        = 0.5;
+        //     $options->svgLogoCssClass     = 'dark';
+        //     // QROptions
+        //     // $options->version             = 5;
+        //     $options->outputType          = QROutputInterface::CUSTOM;
+        //     $options->outputInterface     = QRSvgWithLogo::class;
+        //     $options->eccLevel            = EccLevel::H; // ECC level H is necessary when using logos
+        //     $options->drawLightModules    = false;
+        //     $options->addLogoSpace = true;
+        //     $options->logoSpaceWidth = 10;
+        //     $options->logoSpaceHeight = 10;
+        //     $options->keepAsSquare        = [
+        //         QRMatrix::M_FINDER_DARK,
+        //         QRMatrix::M_FINDER_DOT,
+        //         QRMatrix::M_ALIGNMENT_DARK,
+        //     ];
+        // }
+        
+        // LOGO SPACE
         if(!is_null($logo)){
-            $options = new SVGWithLogoOptions;
-            $options->quietzoneSize = 0;
-            $options->outputBase64        = false;
-            $options->svgLogo             = $logo;
-            $options->svgLogoScale        = 0.5;
-            $options->svgLogoCssClass     = 'dark';
-            // QROptions
-            // $options->version             = 5;
-            $options->outputType          = QROutputInterface::CUSTOM;
-            $options->outputInterface     = QRSvgWithLogo::class;
             $options->eccLevel            = EccLevel::H; // ECC level H is necessary when using logos
-            $options->drawLightModules    = false;
             $options->addLogoSpace = true;
             $options->logoSpaceWidth = 10;
             $options->logoSpaceHeight = 10;
