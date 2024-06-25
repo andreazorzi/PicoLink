@@ -53,7 +53,7 @@ class Short extends Model
         return [
             [
                 "custom-attributes" => 'onclick="navigator.clipboard.writeText(`'.(!empty($key) ? $this->getLink() : "").'`); Toastify({text: `'.__("app.pages.index.link_copied").'!`, duration: `1400`, className: `success`, gravity: `bottom`, position: `center`, close: true}).showToast();"',
-                "icon" => '<i class="fa-solid fa-clipboard text-primary"></i>'
+                "icon" => '<i class="fa-solid fa-copy text-primary"></i>'
             ],
             
             // Default action

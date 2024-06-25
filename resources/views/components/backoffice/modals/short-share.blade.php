@@ -24,7 +24,7 @@
 			</div>
 			
 			<button id="copy-link" class="btn btn-success btn-sm w-100 mt-2" data-link="{{$short->getLink()}}">
-				<i class="fa-solid fa-clipboard me-2"></i>
+				<i class="fa-solid fa-copy me-2"></i>
 				{{__("app.pages.short.copy_link")}}
 			</button>
 		</div>
