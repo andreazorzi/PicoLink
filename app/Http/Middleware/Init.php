@@ -21,11 +21,11 @@ class Init
     public function handle(Request $request, Closure $next, ...$roles)
     {
         
-        Artisan::call('migrate');
+        Artisan::call('migrate --force');
         
         // check if user admin exists
         if (is_null(User::find("admin"))) {
-            Artisan::call('db:seed');
+            Artisan::call('db:seed --force');
         }
         
         return $next($request);
