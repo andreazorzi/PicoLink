@@ -24,7 +24,7 @@ class Init
         Artisan::call('migrate --force');
         
         // check if user admin exists
-        if (is_null(User::find("admin"))) {
+        if (is_null(User::find(config("auth.admin.username")))) {
             Artisan::call('db:seed --force');
         }
         
