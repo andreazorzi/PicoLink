@@ -9,6 +9,19 @@
 <div class="modal-body">
 	<div class="row g-3">
 		@empty($short)
+			<div class="col-12">
+				<label>{{ucfirst(__('validation.attributes.custom_code'))}}</label>
+				<div class="input-group">
+					<span class="input-group-text">
+						{{config("app.url")}}
+					</span>
+					@php
+						$code = Short::generateCode();
+					@endphp
+					<input type="text" class="form-control" id="short-custom_code" name="custom_code" maxlength="50" placeholder="{{$code}}"></input>
+					<input type="hidden" name="code" value="{{$code}}"></input>
+				</div>
+			</div>
 			<div class="col-md-12">
 				<div id="short-urls" class="row g-3">
 					<div class="col-12">
@@ -30,19 +43,6 @@
 					<i class="fa-solid fa-plus"></i>
 					{{__("app.pages.short.add_language")}}
 				</button>
-			</div>
-			<div class="col-12">
-				<label>{{ucfirst(__('validation.attributes.custom_code'))}}</label>
-				<div class="input-group">
-					<span class="input-group-text">
-						{{config("app.url")}}
-					</span>
-					@php
-						$code = Short::generateCode();
-					@endphp
-					<input type="text" class="form-control" id="short-custom_code" name="custom_code" maxlength="50" placeholder="{{$code}}"></input>
-					<input type="hidden" name="code" value="{{$code}}"></input>
-				</div>
 			</div>
 		@endempty
 		<div class="col-12">

@@ -228,7 +228,7 @@ return [
         'language' => 'lingua',
         'custom_code' => 'codice personalizzato',
         'urls' => [
-            '_default' => 'url di default',
+            '_default' => 'url di destinazione predefinito',
         ],
     ],
 ];
