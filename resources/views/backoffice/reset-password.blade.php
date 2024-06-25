@@ -28,9 +28,9 @@
 							<h2 class="mb-4">Reset Password</h2>
 							@if (!$error)
 								<form>
-									<input type="password" id="current_password" name="current_password" class="form-control mb-3" placeholder="Password">
-									<input type="password" id="password" name="password" class="form-control mb-3" placeholder="Password">
-									<input type="password" id="password_confirmation" name="password_confirmation" class="form-control mb-3" placeholder="Conferma Password">
+									<input type="password" id="current_password" name="current_password" class="form-control mb-3" placeholder="{{ucwords(__('validation.attributes.current_password'))}}">
+									<input type="password" id="password" name="password" class="form-control mb-3" placeholder="{{ucwords(__('validation.attributes.password'))}}">
+									<input type="password" id="password_confirmation" name="password_confirmation" class="form-control mb-3" placeholder="{{ucwords(__('validation.attributes.password_confirmation'))}}">
 									
 									<input type="hidden" name="token" value="{{request()->token}}">
 									
