@@ -20,7 +20,9 @@
         <div class="row h-100 justify-content-center">
 			<div class="col-md-5 align-self-center text-center">
 				<div class="col-md-12 p-4 align-self-center text-center" style="margin-top: -100px;">
-					<img class="w-75" src="{{asset("images/logo.png")}}">
+					<a href="{{route("backoffice.index")}}">
+						<img class="w-75" src="{{asset("images/logo.png")}}">
+					</a>
 				</div>
 				<div class="col-md-12 align-self-center text-center">
 					<div class="card">
