@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Classes\Help;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -27,7 +28,7 @@ Route::prefix('backoffice')->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::prefix('short/{short:code}')->group(function(){
             Route::get('/', [ShortController::class, 'short_preview'])->name('backoffice.short');
-            Route::get('/qrcode', [ShortController::class, 'short_preview'])->name('backoffice.short.qrcode-download');
+            Route::get('/qrcode', [ImageController::class, 'qrcode'])->name('backoffice.short.qrcode');
         });
 
         Route::view('tags', 'backoffice.tags')->name('backoffice.tags');

@@ -1,9 +1,5 @@
 @php
-	use chillerlan\QRCode\QRCode;
-	use chillerlan\QRCode\QROptions;
 	
-	$options = new QROptions;
-	$options->quietzoneSize = 0;
 @endphp
 <div class="modal-header">
 	<h1 class="modal-title fs-5" id="modalLabel">
@@ -14,10 +10,9 @@
 <div class="modal-body">
 	<div class="row justify-content-center">
 		<div class="col-md-5">
-			<img src="{{(new QRCode($options))->render($short->getLink())}}" class="logo">
+			<img src="{{route("backoffice.short.qrcode", [$short])}}" class="logo w-100">
 			
-			@php($options->quietzoneSize = 1)
-			<a href="{{(new QRCode($options))->render($short->getLink())}}" download="{{$short->code}}.svg" class="btn btn-primary btn-sm w-100 mt-3">
+			<a href="{{route("backoffice.short.qrcode", [$short])}}" download="{{$short->code}}" class="btn btn-primary btn-sm w-100 mt-3">
 				<i class="fa-solid fa-qrcode me-2"></i>
 				Download
 			</a>
