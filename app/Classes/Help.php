@@ -68,7 +68,7 @@ class Help
         $referrer = request()->headers->get("referer");
         
         $request_data = [
-            "ip" => config('app.env') == 'local' ? fake()->ipv4() : request()->ip(),
+            "ip" => config('app.env') == 'local' ? fake()->ipv4() : $_SERVER["HTTP_X_FORWARDED_FOR"] ?? request()->ip(),
             "language" => $browser_language,
             "device_type" => $device_type,
             "referrer" => $referrer ? parse_url($referrer, PHP_URL_HOST) : "direct"
