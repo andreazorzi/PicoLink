@@ -14,7 +14,8 @@ RUN dnf update -y \
        php-msgpack php-igbinary php-redis \
        php-memcached php-pcov php-xdebug -y \
     && dnf install supervisor -y
-RUN dnf install  php-swoole --nobest -y
+RUN dnf install php-swoole --nobest -y
+RUN dnf install mysql -y
 RUN mkdir -p /run/php-fpm/
 
 RUN curl https://getmic.ro | bash && mv micro /usr/bin/
