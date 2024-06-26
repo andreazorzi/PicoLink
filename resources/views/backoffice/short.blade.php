@@ -67,7 +67,7 @@
                                                         <div class="col-auto">
                                                             <img class="url-flag" title="{{$language}}" alt="{{$language}}" src="{{asset("images/lang/".($url->language ?? 'default').".svg")}}">
                                                         </div>
-                                                        <div class="col align-self-center">
+                                                        <div class="col text-break align-self-center">
                                                             {{$url->url}}
                                                         </div>
                                                         <div class="col-auto align-self-center">
