@@ -28,7 +28,7 @@
                         <div class="col-md-12 text-center">
                             @method('PUT')
                             <button type="submit" class="btn btn-primary"
-                                hx-post="{{route("short.upload-csv")}}" hx-target="#request-response" hx-encoding="multipart/form-data">
+                                hx-post="{{route("short.upload-csv")}}" hx-target="#request-response" hx-encoding="multipart/form-data" hx-disabled-elt="this">
                                 {{__('app.pages.upload-csv.upload')}}
                             </button>
                         </div>
