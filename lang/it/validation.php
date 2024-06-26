@@ -142,7 +142,7 @@ return [
     'uuid'                 => ':Attribute deve essere un UUID valido.',
     
     // Custom validation rules
-    'slug' => ':Attribute non può contenere spazi.',
+    'slug' => ':Attribute può contenere solo lettere, numeri, trattini e emoji.',
     
     'attributes'           => [
         'address'                  => 'indirizzo',
