@@ -224,7 +224,8 @@ class Short extends Model
         }
         
         do{
-            $code = Str::random($length);
+            $code = Str::random(floor($length));
+            $length += 0.2;
         }while(Short::where("code", $code)->exists() || $code == "backoffice");
         
         return $code;
