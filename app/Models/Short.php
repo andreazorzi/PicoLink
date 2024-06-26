@@ -274,7 +274,7 @@ class Short extends Model
             "urls._default" => [!$update ? "required" : "prohibited", 'url:http,https'],
             "urls.*" => [!$update ? "required" : "prohibited", 'url:http,https'],
 			"custom_code" => ['nullable', "unique:App\Models\Short,code", 'max:50', new Slug],
-			"description" => ['required', 'max:255'],
+			"description" => ['nullable', 'max:255'],
 			"tags.*" => ['nullable', "exists:App\Models\Tag,id"],
         ]);
         
