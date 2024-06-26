@@ -73,6 +73,6 @@ Route::prefix('shorts')->group(function () {
             }
         }
         
-        return response()->json(['status' => 'success', 'message' => 'Short link created successfully.']);
+        return response()->json(['status' => 'success', 'message' => 'Short links created successfully.']);
     })->name('short.create');
 });
