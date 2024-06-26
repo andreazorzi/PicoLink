@@ -22,7 +22,7 @@ Route::prefix('shorts')->group(function () {
     Route::put('create', function(Request $request){
         $validator = Validator::make($request->all(), [
             'shorts' => ['required'],
-            'shorts.*.code' => ['required', 'max:50', 'unique:shorts,code'],
+            'shorts.*.code' => ['required', 'max:50', 'unique:shorts,code', Rule::notIn(["backoffice"])],
             'shorts.*.description' => ['nullable', 'max:255'],
             'shorts.*.url' => ['required', 'max:255', 'url:http,https'],
             'shorts.*.languages.*.url' => ['required_with:shorts.*.languages.*.language', 'max:255', 'url:http,https'],
@@ -30,6 +30,7 @@ Route::prefix('shorts')->group(function () {
         ], [
             'shorts.required' => 'The short link is required',
             'shorts.*.code.unique' => 'The following short links already exist: :input',
+            'shorts.*.code.not_in' => 'The short link ":input" is invalid.',
             'shorts.*.languages.*.url.required_with' => 'The language URL is required when the language is present.',
             'shorts.*.languages.*.url.max' => 'The language URL must not be greater than 255 characters.',
             'shorts.*.languages.*.url.url' => 'The language URL format is invalid.',
