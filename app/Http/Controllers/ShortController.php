@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use chillerlan\QRCode\QROptions;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Brunoinds\LinkPreviewDetector\LinkPreviewDetector;
 
 class ShortController extends Controller
 {
@@ -43,7 +44,7 @@ class ShortController extends Controller
         $browser_language = Help::preferred_language();
         $url = $short->getUrl($browser_language);
         
-        if(!$test){
+        if(!$test && !LinkPreviewDetector::isForLinkPreview()){
             $request_data = Help::getRequestData();
             
             $visit = $short->visits()->create([
