@@ -91,12 +91,21 @@
 		render: {
 			item: function (item, escape) {
 				return `
-					<div class="me-2" style="color: `+item.textcolor+`; background-color: `+item.backgroundcolor+`; --text-color: `+item.textcolor+`;">
+					<span class="badge fs-6_5 me-2 mb-1" style="background-color: `+item.backgroundcolor+`; color: `+item.textcolor+`;" role="button">
 						`+item.text+`
-					</div>
+					</span>
 				`;
 			},
-		}
+			option: function (item, escape) {
+				return `
+					<div class="my-1 ps-3">
+						<span class="badge fs-6_5 me-2" style="background-color: `+item.backgroundcolor+`; color: `+item.textcolor+`;" role="button">
+							`+item.text+`
+						</span>
+					</div>
+				`;
+			}
+		},
 	});
 	
 	modal.show();
