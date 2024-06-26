@@ -79,7 +79,7 @@ AUTHENTIK_SLUG: "picolink"
 {
     "shorts": [
         {
-            "code": "short1",
+            "code": "short1", // set null for generated code
             "description": "link to website",
             "url": "https://website.com/default-redirect-url",
             "languages": [
@@ -102,6 +102,9 @@ AUTHENTIK_SLUG: "picolink"
 // JSON Response
 {
     "status": "success", // or danger
-    "message": "Short links created successfully." // or the errors
+    "message": "Short links created successfully.", // or the errors
+    "shorts": [ // if success, get the shorted link
+        "https://website.com/default-redirect-url": "https://short.com/short1"
+    ]
 }
 ```

@@ -22,7 +22,7 @@ Route::prefix('shorts')->group(function () {
     Route::put('create', function(Request $request){
         $validator = Validator::make($request->all(), [
             'shorts' => ['required'],
-            'shorts.*.code' => ['required', 'max:50', 'unique:shorts,code', Rule::notIn(["backoffice"])],
+            'shorts.*.code' => ['nullable', 'max:50', 'unique:shorts,code', Rule::notIn(["backoffice"])],
             'shorts.*.description' => ['nullable', 'max:255'],
             'shorts.*.url' => ['required', 'max:255', 'url:http,https'],
             'shorts.*.languages.*.url' => ['required_with:shorts.*.languages.*.language', 'max:255', 'url:http,https'],
@@ -42,9 +42,11 @@ Route::prefix('shorts')->group(function () {
             return response()->json(['status' => 'danger', 'message' => $validator->errors()->all()]);
         }
         
+        $shorts = [];
+        
         foreach($request->shorts as $short){
             $short_obj = Short::create([
-                'code' => $short['code'],
+                'code' => $short['code'] ?? Short::generateCode(),
                 'description' => $short['description'] ?? $short['url'],
             ]);
             
@@ -72,8 +74,10 @@ Route::prefix('shorts')->group(function () {
                     $short_obj->tags()->attach($tag->id);
                 }
             }
+            
+            $shorts[$short['url']] = $short_obj->getLink();
         }
         
-        return response()->json(['status' => 'success', 'message' => 'Short links created successfully.']);
+        return response()->json(['status' => 'success', 'message' => 'Short links created successfully.', 'shorts' => $shorts]);
     })->name('short.create');
 });
