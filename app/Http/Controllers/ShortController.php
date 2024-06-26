@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Classes\Help;
 use App\Models\Short;
 use App\Jobs\VisitCountry;
@@ -170,12 +171,23 @@ class ShortController extends Controller
             
             $short = Short::create([
                 'code' => $data[$header['code']],
-                'description' => $data[$header['url']],
+                'description' => $data[$header['description'] ?? ''],
             ]);
             
             $short->urls()->create([
                 'url' => $data[$header['url']],
             ]);
+            
+            if(!empty($data[$header['tags'] ?? ''])){
+                foreach(explode(",", $data[$header['tags']]) as $tag){
+                    $tag = Tag::where('name', $tag)->first();
+                    
+                    if(is_null($tag)) continue;
+                    
+                    $short->tags()->attach($tag->id);
+                }
+            }
+            
         }
         
         return view("components.alert", ["status" => count($errors) > 0 ? "warning" : "success", "duration" => count($errors) > 0 ? -1 : 3000, "message" => __("app.pages.upload-csv.upload_statuses.".(count($errors) > 0 ? "warning" : "success"), ["errors" => count($errors), "codes" => implode(", ", $errors)]), "beforeshow" => '$("form")[0].reset()']);
