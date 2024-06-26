@@ -52,7 +52,7 @@
 		$("#tag-preview span").text(name).css("background-color", background_color).css("color", text_color);
 	});
 	
-	$(".selectize").selectize({
+	$(".modal .selectize").selectize({
 		plugins: ["remove_button"],
 		maxItems: 1,
 		copyClassesToDropdown: true,

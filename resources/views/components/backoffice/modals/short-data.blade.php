@@ -84,7 +84,7 @@
 </div>
 
 <script>
-	$(".selectize").selectize({
+	$(".modal .selectize").selectize({
 		plugins: ["remove_button"],
 		sortField: 'text',
 		lockOptgroupOrder: true,

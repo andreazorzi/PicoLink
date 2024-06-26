@@ -2,7 +2,7 @@
 	use App\Models\Short;
 	use App\Models\TagCategory;
 @endphp
-<div class="row justify-content-center">
+<div class="filters row justify-content-center">
 	<div class="col-md-8">
 		<div class="col-md-12 text-end">
 			<button class="btn btn-primary btn-sm" onclick="$('#advanced-search').toggleClass('d-none')">
@@ -25,7 +25,7 @@
 					@foreach (TagCategory::orderBy("name")->get() as $category)
 						<optgroup label="{{$category->name}}">
 							@foreach ($category->tags as $tag)
-								<option value="{{$tag->id}}" data-backgroundcolor="{{$tag->background_color}}" data-textcolor="{{$tag->text_color}}">
+								<option data-backgroundcolor="{{$tag->background_color}}" data-textcolor="{{$tag->text_color}}">
 									{{$tag->name}}
 								</option>
 							@endforeach
@@ -43,7 +43,7 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-		$(".selectize:not(.selectize-tag)").selectize({
+		$(".filters .selectize:not(.selectize-tag)").selectize({
 			plugins: ["remove_button"],
 			onChange: function(value) {
 				$("#page").val(1);
@@ -51,7 +51,7 @@
 			}
 		});
 		
-		$(".selectize-tag").selectize({
+		$(".filters .selectize-tag").selectize({
 			plugins: ["remove_button"],
 			sortField: 'text',
 			lockOptgroupOrder: true,
