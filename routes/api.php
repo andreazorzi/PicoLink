@@ -22,7 +22,7 @@ Route::prefix('shorts')->group(function () {
     Route::put('create', function(Request $request){
         $validator = Validator::make($request->all(), [
             'shorts' => ['required'],
-            'shorts.*.code' => ['nullable', 'max:50', 'unique:shorts,code', Rule::notIn(["backoffice"])],
+            'shorts.*.code' => ['nullable', 'max:50', 'unique:shorts,code', Rule::notIn(["backoffice", "request", "api"])],
             'shorts.*.description' => ['nullable', 'max:255'],
             'shorts.*.url' => ['required', 'max:255', 'url:http,https'],
             'shorts.*.languages.*.url' => ['required_with:shorts.*.languages.*.language', 'max:255', 'url:http,https'],

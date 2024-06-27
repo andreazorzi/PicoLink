@@ -41,7 +41,7 @@ return new class extends Migration
         Schema::create('shorts', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->string('code', 50)->unique();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->dateTime('created_at')->useCurrent();
         });
         

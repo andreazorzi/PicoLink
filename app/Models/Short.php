@@ -223,14 +223,14 @@ class Short extends Model
     }
     
     public static function generateCode($code = null, $length = 4){
-        if(!empty($code) && !Short::where("code", $code)->exists() && $code != "backoffice"){
+        if(!empty($code) && !Short::where("code", $code)->exists() && !in_array($code, ["backoffice", "request", "api"])){
             return $code;
         }
         
         do{
             $code = Str::random(floor($length));
             $length += 0.2;
-        }while(Short::where("code", $code)->exists() || $code == "backoffice");
+        }while(Short::where("code", $code)->exists() || in_array($code, ["backoffice", "request", "api"]));
         
         return $code;
     }
