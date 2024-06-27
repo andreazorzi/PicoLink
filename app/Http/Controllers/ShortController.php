@@ -81,7 +81,7 @@ class ShortController extends Controller
             abort(404);
         }
         
-        // redirect to short page
+        return view('backoffice.short', ['short' => $short]);
     }
     
     public function short_preview(Request $request, Short $short){
