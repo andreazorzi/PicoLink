@@ -59,6 +59,10 @@ class Short extends Model
                 "custom-attributes" => 'onclick="navigator.clipboard.writeText(`'.(!empty($key) ? $this->getLink() : "").'`); Toastify({text: `'.__("app.pages.index.link_copied").'!`, duration: `1400`, className: `success`, gravity: `bottom`, position: `center`, close: true}).showToast();"',
                 "icon" => '<i class="fa-solid fa-copy text-primary"></i>'
             ],
+            [
+                "url" => (!empty($key) ? route("short.test", ["short" => $this->code ?? ""]) : ""),
+                "icon" => '<i class="fa-solid fa-check-double text-success"></i>'
+            ],
             
             // Default action
             [

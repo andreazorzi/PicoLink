@@ -53,8 +53,8 @@ Route::middleware('dev-env')->group(function () {
 // Shorts
 Route::prefix('{short}')->group(function () {
     Route::get('/', [ShortController::class, 'short'])->name("short");
-    Route::get('/info', [ShortController::class, 'short_info']);
-    Route::get('/test', [ShortController::class, 'short_test']);
+    Route::get('/info', [ShortController::class, 'short_info'])->name("short.info");
+    Route::get('/test', [ShortController::class, 'short_test'])->name("short.test");
 });
 
 Route::view('/', 'index')->name('index');

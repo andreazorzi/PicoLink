@@ -34,6 +34,10 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-auto align-self-end text-end">
+                                        <a class="btn btn-warning btn-sm me-3" href="{{route("short.test", [$short->code])}}">
+                                            <i class="fa-solid fa-check-double"></i>
+                                            Test Short
+                                        </a>
                                         <button class="btn btn-primary btn-sm"
                                             hx-post="{{route("short.share", [$short])}}" hx-target="#modal .modal-content">
                                             <i class="fa-solid fa-share"></i>
