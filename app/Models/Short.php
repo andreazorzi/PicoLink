@@ -25,6 +25,10 @@ class Short extends Model
     
     public static function getTableFields():array{
         return [
+            "id" => [
+                "hidden" => true,
+                "sort" => "desc",
+            ],
             "code" => [
                 "filter" => true,
             ],
@@ -41,11 +45,11 @@ class Short extends Model
             "visits" => [
                 "custom-value" => "getVisits",
             ],
-            "created_at" => [
-                "hidden" => true,
-                "sort" => "desc",
-                "custom-value" => "getCreatedAtText",
-            ],
+            // "created_at" => [
+            //     "hidden" => true,
+            //     "sort" => "desc",
+            //     "custom-value" => "getCreatedAtText",
+            // ],
         ];
     }
     
