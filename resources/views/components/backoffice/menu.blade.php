@@ -1,6 +1,8 @@
 @php
     use App\Models\User;
 	
+	$menu_routes = array_keys(__("app.backoffice"));
+	
 	$group = "";
 @endphp
 <div class="menu-bg fixed-top w-100 h-100 d-none bg-dark bg-opacity-25"></div>
@@ -10,7 +12,7 @@
 			<i id="menu-close" class="fa-solid fa-xmark p-1"></i>
 		</div>
 		@foreach (Route::getRoutes() as $route)
-			@if(strpos($route->getName(), "backoffice.") !== false && User::current()->canAccessRoute($route) && ($route->defaults["headers"]["menu"] ?? false))
+			@if(strpos($route->getName(), "backoffice.") !== false && User::current()->canAccessRoute($route) && in_array(str_replace("backoffice.", "", $route->getName()), $menu_routes))
 				@if(($route->defaults["headers"]["menu-group"] ?? "") != $group)
 					@if($group != "")
 						</div></div>

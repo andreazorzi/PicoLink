@@ -4,7 +4,7 @@
 namespace App\Classes;
 
 use Illuminate\Support\Str;
-
+use Detection\MobileDetect;
 
 class Help
 {
@@ -13,7 +13,7 @@ class Help
 	}
     
     public static function fragment(string $view, string $fragment, array $data = []):string{
-        return view($view, $data)->fragment($fragment);
+        return view($view, array_merge($data, ["fragment" => true]))->fragment($fragment);
 	}
     
     public static function strToLen(?string $str, int $len, bool $left = false){
@@ -44,5 +44,36 @@ class Help
         }
         
         return true;
+    }
+    
+    public static function preferred_language(){
+        $browser_language = request()->getPreferredLanguage();
+        
+        return explode("_", $browser_language)[0];
+    }
+    
+    public static function getRequestData(){
+        // Browser language
+        $browser_language = explode("_", request()->getPreferredLanguage())[0];
+        
+        // Device type
+        $detect = new MobileDetect;
+        $device_type = "desktop";
+        
+        if($detect->isMobile()){
+            $device_type = $detect->isTablet() ? "tablet" : "mobile";
+        }
+        
+        // Referrer
+        $referrer = request()->headers->get("referer");
+        
+        $request_data = [
+            "ip" => config('app.env') == 'local' ? fake()->ipv4() : $_SERVER["HTTP_X_FORWARDED_FOR"] ?? request()->ip(),
+            "language" => $browser_language,
+            "device_type" => $device_type,
+            "referrer" => $referrer ? parse_url($referrer, PHP_URL_HOST) : "direct"
+        ];
+        
+        return $request_data;
     }
 }

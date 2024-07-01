@@ -32,7 +32,7 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-		$(".selectize").selectize({
+		$(".modal .selectize").selectize({
 			plugins: ["remove_button"],
 			onChange: function(value) {
 				$("#page").val(1);

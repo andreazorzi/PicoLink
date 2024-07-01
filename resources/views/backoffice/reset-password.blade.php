@@ -1,3 +1,6 @@
+@php
+	$error ??= false;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,7 +20,9 @@
         <div class="row h-100 justify-content-center">
 			<div class="col-md-5 align-self-center text-center">
 				<div class="col-md-12 p-4 align-self-center text-center" style="margin-top: -100px;">
-					<img class="w-75" src="{{asset("images/logo.png")}}">
+					<a href="{{route("backoffice.index")}}">
+						<img class="w-75" src="{{asset("images/logo.png")}}">
+					</a>
 				</div>
 				<div class="col-md-12 align-self-center text-center">
 					<div class="card">
@@ -25,13 +30,13 @@
 							<h2 class="mb-4">Reset Password</h2>
 							@if (!$error)
 								<form>
-									<input type="password" id="password" name="password" class="form-control mb-3" placeholder="Password">
-									<input type="password" id="password_confirmation" name="password_confirmation" class="form-control mb-3" placeholder="Conferma Password">
+									<input type="password" id="current_password" name="current_password" class="form-control mb-3" placeholder="{{ucwords(__('validation.attributes.current_password'))}}">
+									<input type="password" id="password" name="password" class="form-control mb-3" placeholder="{{ucwords(__('validation.attributes.password'))}}">
+									<input type="password" id="password_confirmation" name="password_confirmation" class="form-control mb-3" placeholder="{{ucwords(__('validation.attributes.password_confirmation'))}}">
 									
 									<input type="hidden" name="token" value="{{request()->token}}">
 									
-									<button class="btn btn-primary w-100"
-										hx-put="{{route("user.change-password", [$reset_link])}}" hx-target="#request-result">
+									<button class="btn btn-primary w-100" hx-put="{{route("user.change-password")}}" hx-target="#request-result">
 										Aggiorna
 									</button>
 									

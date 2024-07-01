@@ -140,6 +140,10 @@ return [
     'uppercase'            => ':Attribute deve contenere solo caratteri maiuscoli.',
     'url'                  => 'Il formato del campo :attribute non è valido.',
     'uuid'                 => ':Attribute deve essere un UUID valido.',
+    
+    // Custom validation rules
+    'slug' => ':Attribute può contenere solo lettere, numeri, trattini e emoji.',
+    
     'attributes'           => [
         'address'                  => 'indirizzo',
         'age'                      => 'età',
@@ -151,7 +155,7 @@ return [
         'city'                     => 'città',
         'content'                  => 'contenuto',
         'country'                  => 'paese',
-        'created_at'               => 'creato a',
+        'created_at'               => 'creato il',
         'creator'                  => 'Creatore',
         'current_password'         => 'password attuale',
         'date'                     => 'data',
@@ -210,11 +214,21 @@ return [
         'time'                     => 'ora',
         'title'                    => 'titolo',
         'updated_at'               => 'aggiornato a',
-        'username'                 => 'nome utente',
+        'username'                 => 'username',
         'year'                     => 'anno',
         
         // Custom attributes
         'status' => 'status',
-        'author' => 'autore',
+        'code' => 'codice',
+        'visits' => 'visite',
+        'tag_category' => 'categoria tag',
+        'tags' => 'tag',
+        'background_color' => 'colore background',
+        'text_color' => 'colore testo',
+        'language' => 'lingua',
+        'custom_code' => 'codice personalizzato',
+        'urls' => [
+            '_default' => 'url di destinazione predefinito',
+        ],
     ],
 ];

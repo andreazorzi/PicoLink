@@ -1,14 +1,17 @@
+@php
+	$page = "login";
+@endphp
 <!DOCTYPE html>
 <html lang="en">
     
-	<x-backoffice.head></x-backoffice.head>
+	<x-backoffice.head :title="__('app.pages.'.$page.'.meta_title')" />
 
     <body class="container-fluid login-container vh-100" hx-headers='{"X-CSRF-TOKEN": "{{csrf_token()}}"}' hx-ext="ajax-header">
-		<header class="row sticky-top">
-			@if (app()->isDownForMaintenance())
+		@if (app()->isDownForMaintenance())
+			<header	header class="row sticky-top">
 				<x-maintenance-banner />
-			@endif
-		</header>
+			</header>
+		@endif
         <div class="row h-100 justify-content-center">
 			<div class="col-md-12 align-self-center text-center" style="max-width: 450px;">
 				<div class="col-md-12 p-4 align-self-center text-center" style="margin-top: -100px;">
@@ -17,23 +20,29 @@
 				<div class="col-md-12 align-self-center text-center">
 					<div class="card">
 						<div class="card-body p3">
-							<h2 class="mb-4">Login</h2>
+							<h2 class="mb-4">{{__("app.pages.$page.title")}}</h2>
 							<form action="{{route("web-auth.login")}}" method="post">
-								<input type="text" id="username" name="username" class="form-control mb-3" placeholder="Username" value="{{request()->old("username")}}">
-								<input type="password" id="password" name="password" class="form-control mb-3" placeholder="Password">
+								<input type="text" id="username" name="username" class="form-control mb-3" placeholder="{{ucfirst(__("validation.attributes.username"))}}" value="{{request()->old("username")}}">
+								<input type="password" id="password" name="password" class="form-control mb-3" placeholder="{{ucfirst(__("validation.attributes.password"))}}">
 								
 								@csrf
 								
-								<button class="btn btn-primary w-100">Accedi</button>
-								
-								{{-- @if(!empty(request()->old("username")))
-									<div class="mt-3">
-										<u role="button" hx-post="{{route("user.send-reset-password-user", [request()->old("username")])}}">
-											Hai dimenticato la password?
-										</u>
-									</div>
-								@endif --}}
+								<button class="btn btn-primary w-100">{{__("app.pages.$page.login_button")}}</button>
 							</form>
+							
+							@if (!empty($errors->getMessages()))
+								<div class="row justify-content-center">
+									<div class="col-md-12 mt-3">
+										<span class="text-danger mb-3">
+											<b>{{__("app.pages.$page.error")}}</b><br>
+											@foreach ($errors->getMessages() as $error)
+												{{$error[0]}}<br>
+											@endforeach
+										</span>
+									</div>
+								</div>
+							@endif
+							
 							@if (!is_null(config("services.authentik.base_url")))
 								<hr class="my-4">
 								<a href="{{route("auth.login")}}" class="btn btn-authentik w-100">

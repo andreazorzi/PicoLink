@@ -42,26 +42,30 @@ import "htmx.org/dist/ext/ajax-header.js";
 import SelectSearch from "@andreazorzi/selectsearch";
 window.SelectSearch = SelectSearch;
 
+// Selectize
 import selectize from "@selectize/selectize";
+
+// Chart.js
+import Chart from 'chart.js/auto';
+window.Chart = Chart;
 
 // Sortablejs
 // import Sortable from 'sortablejs';
 // window.Sortable = Sortable;
 
 // Airdatepicker
-// import AirDatepicker from 'air-datepicker';
-// windows.AirDatepicker = AirDatepicker;
-// import locale_en from 'air-datepicker/locale/en';
-// import locale_it from 'air-datepicker/locale/it';
-// import locale_de from 'air-datepicker/locale/de';
-// window.locale_en = locale_en;
-// window.locale_it = locale_it;
-// window.locale_de = locale_de;
+import AirDatepicker from 'air-datepicker';
+window.AirDatepicker = AirDatepicker;
+import locale_en from 'air-datepicker/locale/en';
+import locale_it from 'air-datepicker/locale/it';
+import locale_de from 'air-datepicker/locale/de';
+window.locale_en = locale_en;
+window.locale_it = locale_it;
+window.locale_de = locale_de;
 
 // Autocompleter
 // import autocomplete from 'autocompleter';
 // window.autocomplete = autocomplete;
-
 
 import * as Sentry from "@sentry/browser";
 

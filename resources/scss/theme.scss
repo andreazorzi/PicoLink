@@ -1,20 +1,21 @@
-$header-height: 50px;
+$header-height: 73px;
 
 // Site Theme
 body{
-	background-color: #c1ebff;
+	background-color: #e5e5e5;
 	font-family: "Poppins", sans-serif !important;
 	
 	header{
-		background-color: #f8f9fa;
+		height: $header-height;
+		background-color: #c1ebff;
 		border-bottom: 1px solid #d3d3d3;
+		
+		.logo{
+			max-height: 60px;
+		}
 		
 		#menu-button{
 			cursor: pointer;
-		}
-		
-		.logo{
-			height: $header-height;
 		}
 		
 		h2{
@@ -28,6 +29,8 @@ body{
 			.avatar{
 				height: 40px;
 				border-radius: 50em;
+				// border: 1px solid #a3a3a3;
+				box-shadow: 0 0 3px 0px #a3a3a3;;
 			}
 			
 			#user-actions{
@@ -35,7 +38,7 @@ body{
 				position: absolute;
 				bottom: 0px;
 				right: 0px;
-				width: 200px;
+				width: 220px;
 				transform: translateY(100%);
 				background-color: #ffffff;
 				border: 1px solid #d3d3d3;
@@ -181,6 +184,8 @@ body{
 }
 
 .login-container{
+	background-color: #c1ebff;
+	
 	.card{
 		.btn-authentik{
 			background-color: #f3492f;
@@ -214,6 +219,14 @@ body{
 .sticky-top-header{
 	position: sticky;
 	top: 73px;
+}
+
+.fs-6_5{
+	font-size: 0.875rem!important;
+	
+	@media (min-width: 1200px){
+		font-size: 0.875rem!important;
+	}
 }
 
 .fs-7{
@@ -265,4 +278,24 @@ body{
 
 .select-search-modal{
 	min-width: auto !important;
+}
+
+.url-flag{
+	width: 40px;
+}
+
+.selectize{
+	.optgroup{
+		.optgroup-header{
+			font-weight: bold;
+		}
+		
+		.option{
+			padding-left: 25px;
+		}
+	}
+	
+	.remove{
+		color: inherit;
+	}
 }

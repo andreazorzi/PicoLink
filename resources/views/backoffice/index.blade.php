@@ -11,35 +11,34 @@
         <x-backoffice.header />
 
         <div id="container">
-            <div class="row mb-3">
-                {{-- Title --}}
-                <x-backoffice.title title="Example Title">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                </x-backoffice.title>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div id="bookmarks" class="row justify-content-center">
-                        @foreach (Route::getRoutes() as $route)
-                            @if(strpos($route->getName(), "backoffice.") !== false && !empty($route->defaults["headers"]["menu"] ?? []) && User::current()->canAccessRoute($route) && ($route->defaults["headers"]["menu"] ?? false))
-                                <x-backoffice.bookmark :title="__('app.'.$route->getName().'.title')" :route="$route->getName()" :color="__('app.'.$route->getName().'.color')" :icon="__('app.'.$route->getName().'.icon')"/>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+            {{-- Title --}}
+            <x-backoffice.title :title="config('app.name')" />
+            
+            {{-- Search Table --}}
+            <x-search-table-filters.shorts />
+            <x-search-table :model="new App\Models\Short()"></x-search-table>
+            
+            <style>
+                td:nth-child(2) {
+                    max-width: 600px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            </style>
         </div>
-        
-        {{-- Footer --}}
-        <x-backoffice.footer />
                 
         {{-- Menu --}}
         <x-backoffice.menu />
         
-        {{-- Scripts --}}
-        <x-backoffice.script></x-backoffice.script>
+        {{-- Modal --}}
+        <x-modal/>
+        <x-modal id="2"/>
         
         {{-- Ajax responses --}}
         <div id="request-response"></div>
+        
+        {{-- Scripts --}}
+        <x-backoffice.script></x-backoffice.script>
     </body>
 </html>

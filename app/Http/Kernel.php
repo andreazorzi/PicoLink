@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'api-token' => \App\Http\Middleware\ApiToken::class,
         'administrator' => \App\Http\Middleware\Administrator::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'dev-env' => \App\Http\Middleware\DevelopmentEnviroment::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'init' => \App\Http\Middleware\Init::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'role' => \App\Http\Middleware\HasRole::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,

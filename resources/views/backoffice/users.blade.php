@@ -22,9 +22,6 @@
             {{-- Modal --}}
             <x-modal></x-modal>
         </div>
-        
-        {{-- Footer --}}
-        <x-backoffice.footer />
                 
         {{-- Menu --}}
         <x-backoffice.menu />

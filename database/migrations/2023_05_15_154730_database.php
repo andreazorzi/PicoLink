@@ -36,6 +36,66 @@ return new class extends Migration
             $table->primary('token');
             $table->foreign('user')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
+        
+        // Shorts
+        Schema::create('shorts', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->string('code', 50)->unique();
+            $table->string('description')->nullable();
+            $table->dateTime('created_at')->useCurrent();
+        });
+        
+        // Urls
+        Schema::create('urls', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->integer('short_id');
+            $table->string('url');
+            $table->char('language', 2)->nullable();
+            
+            $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->onDelete('cascade');
+        });
+        
+        // Visits
+        Schema::create('visits', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->integer('short_id')->nullable();
+            $table->integer('url_id')->nullable();
+            $table->string('language');
+            $table->string('device', 50);
+            $table->string('country', 2)->nullable();
+            $table->string('referrer');
+            $table->dateTime('created_at')->useCurrent();
+            
+            $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->nullOnDelete();
+            $table->foreign('url_id')->references('id')->on('urls')->onUpdate('cascade')->nullOnDelete();
+        });
+        
+        // Tag Categories
+        Schema::create('tag_categories', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->string('name');
+        });
+        
+        // Tags
+        Schema::create('tags', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->integer('tag_category_id');
+            $table->string('name');
+            $table->char('background_color', 7)->default('#000000');
+            $table->char('text_color', 7)->default('#ffffff');
+            
+            $table->foreign('tag_category_id')->references('id')->on('tag_categories')->onUpdate('cascade')->onDelete('cascade');
+        });
+        
+        // Short Tags
+        Schema::create('short_tag', function (Blueprint $table) {
+            $table->integer('short_id');
+            $table->integer('tag_id');
+            
+            $table->primary(['short_id', 'tag_id']);
+            $table->foreign('short_id')->references('id')->on('shorts')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**
@@ -43,6 +103,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('short_tag');
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('tag_categories');
+        Schema::dropIfExists('visits');
+        Schema::dropIfExists('urls');
+        Schema::dropIfExists('shorts');
+        Schema::dropIfExists('password_resets');
         Schema::dropIfExists('users');
     }
 };

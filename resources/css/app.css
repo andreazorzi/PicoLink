@@ -13,11 +13,14 @@
 /* Selectize */
 @import "@selectize/selectize/dist/css/selectize.css";
 
+/* Flag Icons */
+@import "flag-icons/css/flag-icons.min.css";
+
 /* Autocompleter */
 /* @import "autocompleter/autocomplete.css"; */
 
 /* Airdatepicker */
-/* @import "air-datepicker/dist/air-datepicker.css"; */
+@import "air-datepicker/air-datepicker.css";
 
 
 /* Fontawesome needs to be imported last in order to avoid issues with other plugins */

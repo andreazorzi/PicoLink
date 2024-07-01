@@ -34,6 +34,18 @@
 					$advanced_values[] = Help::convert_date($dates[0]);
 					$advanced_values[] = Help::convert_date($dates[1] ?? $dates[0]);
 				}
+				else if(($field["advanced-type"] ?? null) == "in-array"){
+					$multi_filter = [];
+					
+					foreach($advanced[$key] as $value){
+						$multi_filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') LIKE '%".$value."%'";
+					}
+					
+					$filter[] = "(".implode(" AND ", $multi_filter).")";
+				}
+				else if(($field["advanced-type"] ?? null) == "like"){
+					$filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') LIKE '%".$advanced[$key]."%'";
+				}
 				else{
 					$multi_filter = [];
 					
@@ -59,10 +71,11 @@
 	// Perform model search
 	$search = !empty($filter) ? $model::whereRaw("(".implode(Help::empty_dictionary($advanced) ? " OR " : " AND ", $filter).")", !Help::empty_dictionary($advanced) ? $advanced_values : $filter_values) : $model::query();
 	
-	// if(!empty($advanced_values)){
-	// 	// $search->dd();
-	// 	// dd(Help::empty_dictionary($advanced));
-	// }
+	if(!empty($advanced)){
+		// dd($advanced);
+		// $search->dd();
+		// dd(Help::empty_dictionary($advanced));
+	}
 	
 	// Check model filter
 	foreach($modelfilter as $key => $value){
@@ -159,7 +172,7 @@
 								<td class="text-end">
 									@foreach ($model_obj->getTableActions($model_name, $model_key, $model_obj->{$model_key}) as $action)
 										@isset($action["url"])
-											<a href="{{$action["url"]}}" class="d-inline-block ms-3 text-decoration-none text-black" title="{{$action["title"]}}" {!!$action["custom-attributes"]!!}>
+											<a href="{{$action["url"]}}" class="d-inline-block ms-3 text-decoration-none text-black" title="{{$action["title"] ?? ''}}" {!!$action["custom-attributes"] ?? ''!!}>
 												{!!$action["icon"]!!}
 											</a>
 										@else

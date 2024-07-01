@@ -1,7 +1,4 @@
 @php
-	use App\Models\RouteList;
-	use App\Models\Pickup;
-	
 	$type = $user->type ?? request()->type ?? ""
 @endphp
 <div class="modal-header">
