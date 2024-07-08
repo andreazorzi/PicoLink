@@ -1,4 +1,4 @@
-FROM rockylinux:9.2 as build
+FROM rockylinux:9.2
 EXPOSE 80
 
 # Installazione pacchetti principali
