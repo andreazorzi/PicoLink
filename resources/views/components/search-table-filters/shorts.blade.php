@@ -9,6 +9,21 @@
 				<i class="fa-brands fa-searchengin"></i>
 				{{__("app.pages.tags.advanced_search")}}
 			</button>
+			
+			<div class="dropdown d-inline-block">
+				<button class="btn btn-success btn-sm dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fa-solid fa-qrcode me-2"></i>
+					Download
+				</button>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item" role="button" hx-get="{{route("short.multiple-download")}}" hx-include="[name='filter'],[name^='advanced_search']">QRCode</a>
+					</li>
+					<li>
+						<a class="dropdown-item" role="button" hx-get="{{route("short.multiple-download", ["logo" => true])}}" hx-include="[name='filter'],[name^='advanced_search']">QRCode + Logo Space</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<div id="advanced-search" class="row gy-2 d-none">
 			<div class="col-md-4">
@@ -48,6 +63,13 @@
 			onChange: function(value) {
 				$("#page").val(1);
 				htmx.trigger("#page", "change");
+			},
+			onDropdownOpen: function() {
+				for (const select of $(".selectize.selectized")) {
+					if(select !== this.$input[0]){
+						select.selectize.close();
+					}
+				}
 			}
 		});
 		
@@ -76,6 +98,13 @@
 			onChange: function(value) {
 				$("#page").val(1);
 				htmx.trigger("#page", "change");
+			},
+			onDropdownOpen: function() {
+				for (const select of $(".selectize.selectized")) {
+					if(select !== this.$input[0]){
+						select.selectize.close();
+					}
+				}
 			}
 		});
 	});
