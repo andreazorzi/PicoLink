@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class Init
 {
@@ -25,6 +26,7 @@ class Init
         if(is_null(Cache::get("migrate"))){
             Artisan::call('migrate --force');
             Cache::forever("migrate", true);
+            Storage::disk("asset")->makeDirectory("tmp/qrcode");
         }
         
         // check if user admin exists
