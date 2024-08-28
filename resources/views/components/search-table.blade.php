@@ -23,70 +23,20 @@
 	$filter = [];
 	$filter_values = [];
 	
-	foreach($fields as $key => $field){
-		
-		if(!empty($field["filter"])){
-			if(!empty($advanced[$key])){
-				if(($field["advanced-type"] ?? null) == "date-range"){
-					$dates = explode(" - ", $advanced[$key]);
-					
-					$filter[] = ($field["custom-filter"] ?? $key)." BETWEEN ? AND ?";
-					$advanced_values[] = Help::convert_date($dates[0]);
-					$advanced_values[] = Help::convert_date($dates[1] ?? $dates[0]);
-				}
-				else if(($field["advanced-type"] ?? null) == "in-array"){
-					$multi_filter = [];
-					
-					foreach($advanced[$key] as $value){
-						$multi_filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') LIKE '%".$value."%'";
-					}
-					
-					$filter[] = "(".implode(" AND ", $multi_filter).")";
-				}
-				else if(($field["advanced-type"] ?? null) == "like"){
-					$filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') LIKE '%".$advanced[$key]."%'";
-				}
-				else{
-					$multi_filter = [];
-					
-					foreach($advanced[$key] as $value){
-						$multi_filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') = ?";
-						$advanced_values[] = $value;
-					}
-					
-					$filter[] = "(".implode(" OR ", $multi_filter).")";
-				}
-			}
-			else if(Help::empty_dictionary($advanced)){
-				$filter[] = "CONVERT(".($field["custom-filter"] ?? $key)." using 'utf8') LIKE ?";
-				$filter_values[] = "%".$query."%";
-			}
-		}
-		
-		if(!empty($field["sort"])){
-			$model_sort[] = ($field["custom-filter"] ?? $key)." ".$field["sort"];
-		}
-	}
+	$search = $model::filter([
+		"query" => $query,
+		"advanced_search" => $advanced,
+	], true);
 	
-	// Perform model search
-	$search = !empty($filter) ? $model::whereRaw("(".implode(Help::empty_dictionary($advanced) ? " OR " : " AND ", $filter).")", !Help::empty_dictionary($advanced) ? $advanced_values : $filter_values) : $model::query();
+	// Clone search for count rows
+	$count = clone($search);
 	
 	if(!empty($advanced)){
 		// dd($advanced);
 		// $search->dd();
 		// dd(Help::empty_dictionary($advanced));
+		// dd($search->dd());
 	}
-	
-	// Check model filter
-	foreach($modelfilter as $key => $value){
-		$search = $search->whereRaw("CONVERT(".($fields[$key]["custom-filter"] ?? $fields[$key]["key"] ?? $key)." using 'utf8') = ?", $value);
-	}
-	
-	// Clone search for count rows
-	$count = clone($search);
-	
-	// Apply order by
-	$search->orderByRaw(implode(",", $model_sort));
 @endphp
 {{-- <div class="row">
 	<div class="col-md-12">

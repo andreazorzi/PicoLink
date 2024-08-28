@@ -4,6 +4,7 @@ namespace App\Models;
 
 use DateTime;
 use App\Rules\Slug;
+use App\Traits\ModelBase;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Short extends Model
 {
-	use HasFactory;
+	use HasFactory, ModelBase;
 	
     public $timestamps = false;
 
