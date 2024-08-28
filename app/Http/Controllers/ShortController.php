@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use ZipArchive;
 use App\Models\Tag;
 use App\Classes\Help;
 use App\Models\Short;
 use App\Jobs\VisitCountry;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use chillerlan\QRCode\QRCode;
 use Illuminate\Validation\Rule;
 use chillerlan\QRCode\QROptions;
-use Illuminate\Support\Facades\Storage;
+use chillerlan\QRCode\Data\QRMatrix;
+use chillerlan\QRCode\Common\EccLevel;
 use Illuminate\Support\Facades\Validator;
 use Brunoinds\LinkPreviewDetector\LinkPreviewDetector;
 
@@ -104,6 +107,7 @@ class ShortController extends Controller
     public function qrcode(Request $request, Short $short){
         $options = new QROptions;
         $options->quietzoneSize = 1;
+        
         $contents = (new QRCode($options))->render($short->getLink());
         $path =  $short->code.".svg";
 
@@ -197,5 +201,42 @@ class ShortController extends Controller
         // $lines = explode("\n", $contents);
         
         // return view("components.backoffice.modals.short-upload-csv", ["lines" => $lines]);
+    }
+    
+    public function multiple_download(Request $request){
+        $shorts = Short::filter([
+            "query" => $request->filter ?? null,
+            "advanced_search" => $request->advanced_search ?? null,
+        ])->get();
+        
+        $time = time();
+        $zip = new ZipArchive;
+        $zipFileName = "tmp/qrcode/".$time.".zip";
+        $zip->open(public_path($zipFileName), ZipArchive::CREATE);
+        
+        foreach($shorts as $short){
+            $options = new QROptions;
+            $options->quietzoneSize = 1;
+        
+            if(!empty($request->logo)){
+                $options->eccLevel= EccLevel::H;
+                $options->addLogoSpace = true;
+                $options->logoSpaceWidth = 10;
+                $options->logoSpaceHeight = 10;
+                $options->keepAsSquare        = [
+                    QRMatrix::M_FINDER_DARK,
+                    QRMatrix::M_FINDER_DOT,
+                    QRMatrix::M_ALIGNMENT_DARK,
+                ];
+            }
+            
+            $contents = (new QRCode($options))->render($short->getLink());
+            
+            $zip->addFromString(Str::slug($short->description).".svg", base64_decode(str_replace("data:image/svg+xml;base64,", "", $contents)));
+        }
+        
+        $zip->close();
+        
+        return response(headers: ["HX-Redirect" => asset($zipFileName)]);
     }
 }

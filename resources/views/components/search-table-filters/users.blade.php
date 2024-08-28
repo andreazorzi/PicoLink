@@ -37,6 +37,13 @@
 			onChange: function(value) {
 				$("#page").val(1);
 				htmx.trigger("#page", "change");
+			},
+			onDropdownOpen: function() {
+				for (const select of $(".selectize.selectized")) {
+					if(select !== this.$input[0]){
+						select.selectize.close();
+					}
+				}
 			}
 		});
 	});
