@@ -13,3 +13,9 @@ window.format_date = function(date, format = "Y-m-d"){
 		return String(date.getDate()).padStart(2, '0') + "/" + String(date.getMonth() + 1).padStart(2, '0') + "/" + date.getFullYear();
 	}
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+	setTimeout(function(){
+		htmx.trigger("#page", "change");
+	}, 100);
+});
