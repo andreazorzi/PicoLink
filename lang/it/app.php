@@ -56,6 +56,9 @@ return [
             'map' => 'Mappa',
             'language_urls' => 'Url in lingua',
             'add_language' => 'Aggiungi Lingua',
+            'update_language' => 'Modifica Lingua',
+            'update' => 'Aggiorna',
+            'updated' => 'Aggiornato',
         ],
         'tags' => [
             'meta_title' => 'Tags',

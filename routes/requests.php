@@ -5,6 +5,7 @@ use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShortController;
 use Illuminate\Support\Facades\Validator;
@@ -33,6 +34,14 @@ Route::prefix("backoffice")->group(function(){
 				Route::post('get-timeline-data', [ShortController::class, 'get_timeline_data'])->name('short.get-timeline-data');
 				Route::post('share', [ShortController::class, 'share'])->name('short.share');
 				Route::post('qrcode', [ShortController::class, 'qrcode'])->name('short.qrcode');
+			});
+		});
+		
+		// Urls
+		Route::prefix("urls")->group(function(){
+			Route::prefix("{url}")->group(function(){
+				Route::post('modal', [UrlController::class, 'modal'])->name('url.modal');
+				Route::put('update', [UrlController::class, 'update'])->name('url.update');
 			});
 		});
 		

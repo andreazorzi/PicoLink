@@ -65,14 +65,16 @@
                                             @php
                                                 $language = !is_null($url->language) ?__("languages.{$url->language}") : "Default";
                                             @endphp
-                                            <div class="col-12">
+                                            <div class="language col-12" data-lang="{{$url->language ?? "default"}}">
                                                 <div class="{{!$loop->last ? 'border-bottom' : ''}}">
                                                     <div class="row g-3 {{!$loop->last ? 'pb-2' : ''}}">
                                                         <div class="col-auto">
                                                             <img class="url-flag" title="{{$language}}" alt="{{$language}}" src="{{asset("images/lang/".($url->language ?? 'default').".svg")}}">
                                                         </div>
                                                         <div class="col text-break align-self-center">
-                                                            {{$url->url}}
+                                                            <span class="url">{{$url->url}}</span>
+                                                            <i class="fa-solid fa-pen ms-2" role="button"
+                                                                hx-post="{{route("url.modal", [$url])}}" hx-target="#modal .modal-content"></i>
                                                         </div>
                                                         <div class="col-auto align-self-center">
                                                             {{$url->visits()->count()}}
