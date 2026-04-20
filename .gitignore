@@ -6,6 +6,7 @@
 /public/tmp
 /storage/*.key
 /vendor
+/sail-mysql
 .env
 .env.backup
 .phpunit.result.cache
