@@ -16,7 +16,7 @@
             
             {{-- Search Table --}}
             <x-search-table-filters.shorts />
-            <x-search-table :model="new App\Models\Short()"></x-search-table>
+            <x-search-table :model="new App\Models\Short()" size="10"></x-search-table>
             
             <style>
                 td:nth-child(2) {
