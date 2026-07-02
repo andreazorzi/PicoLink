@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-auto align-self-end text-end">
-                                        <a class="btn btn-warning btn-sm me-3" href="{{route("short.test", [$short->code])}}">
+                                        <a class="btn btn-warning btn-sm me-3" href="{{route("short.test", [$short->code])}}" target="_blank">
                                             <i class="fa-solid fa-check-double"></i>
                                             Test Short
                                         </a>

@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Short extends Model
 {
-	use HasFactory, ModelBase;
-	
+    use HasFactory, ModelBase;
+    
     public $timestamps = false;
 
     protected $guarded  = ['no_key']; // set guarded columns, set to no_key to avoid problems
@@ -62,6 +62,7 @@ class Short extends Model
             ],
             [
                 "url" => (!empty($key) ? route("short.test", ["short" => $this->code ?? ""]) : ""),
+                "custom-attributes" => 'target="_blank"',
                 "icon" => '<i class="fa-solid fa-check-double text-success"></i>'
             ],
             
@@ -282,14 +283,14 @@ class Short extends Model
             self::getModelKey() => [$update ? "exists:App\Models\\".class_basename(new self).",".self::getModelKey() : "prohibited"],
             "urls._default" => [!$update ? "required" : "prohibited", 'url:http,https'],
             "urls.*" => [!$update ? "required" : "prohibited", 'url:http,https'],
-			"custom_code" => ['nullable', "unique:App\Models\Short,code", 'max:50', new Slug],
-			"description" => ['nullable', 'max:255'],
-			"tags.*" => ['nullable', "exists:App\Models\Tag,id"],
+            "custom_code" => ['nullable', "unique:App\Models\Short,code", 'max:50', new Slug],
+            "description" => ['nullable', 'max:255'],
+            "tags.*" => ['nullable', "exists:App\Models\Tag,id"],
         ]);
         
         if ($validator->fails()) {
-			return ["status" => "danger", "message" => implode("\\n", $validator->errors()->all())];
-		}
+            return ["status" => "danger", "message" => implode("\\n", $validator->errors()->all())];
+        }
         
         return ["status" => "success"];
     }
@@ -303,6 +304,6 @@ class Short extends Model
     }
     
     protected $casts = [
-		
-	];
+        
+    ];
 }
