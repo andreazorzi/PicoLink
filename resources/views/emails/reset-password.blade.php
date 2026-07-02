@@ -57,7 +57,7 @@
   <body style="background-color: #ebf5ff; padding: 10px; word-spacing: normal;">
     
     
-      <div style lang="und" dir="auto">
+      <div aria-roledescription="email" style role="article" lang="und" dir="auto">
         @php
                 use App\Http\Controllers\ImageController; // don't remove
 
