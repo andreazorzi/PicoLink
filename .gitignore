@@ -18,6 +18,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-composer.lock
-package-lock.json
 docker-compose.local.yml
