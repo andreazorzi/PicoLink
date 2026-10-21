@@ -6,6 +6,9 @@ RUN dnf update -y \
     && dnf install npm nodejs ncurses unzip wget procps nano -y \
     && dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm -y \
     && dnf install https://rpms.remirepo.net/enterprise/remi-release-10.rpm -y \
+    && sed -i -e 's|^mirrorlist=|#mirrorlist=|' \
+              -e 's|^#baseurl=http://rpms.remirepo.net|baseurl=http://rpms.remirepo.net|' \
+              /etc/yum.repos.d/remi*.repo \
     && dnf install https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm -y \
     && dnf update -y \
     && dnf module install php:remi-8.3 -y \
